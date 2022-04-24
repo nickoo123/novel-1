@@ -49,7 +49,7 @@ LOCK TABLES `nov_admin` WRITE;
 
 INSERT INTO `nov_admin` (`id`, `account`, `mail`, `name`, `mobile`, `password`, `group_id`, `status`, `login_visit`, `last_login_ip`, `last_logined_at`, `created_at`, `updated_at`, `deleted_at`)
 VALUES
-	(1,'admin','','Vckai',0,'d5e8ee6b896d9f3fbbb14845a0845e3a02f06334065a4ba753932e29a301af3e',1,0,1,'127.0.0.1',1546503635,1492083069,1546503635,0);
+	(1,'admin','','admin',0,'d5e8ee6b896d9f3fbbb14845a0845e3a02f06334065a4ba753932e29a301af3e',1,0,1,'127.0.0.1',1546503635,1492083069,1546503635,0);
 
 /*!40000 ALTER TABLE `nov_admin` ENABLE KEYS */;
 UNLOCK TABLES;

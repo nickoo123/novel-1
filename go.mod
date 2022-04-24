@@ -1,6 +1,6 @@
 module github.com/vckai/novel
 
-go 1.12
+go 1.16
 
 require (
 	github.com/PuerkitoBio/goquery v1.1.0
@@ -10,7 +10,6 @@ require (
 	github.com/axgle/mahonia v0.0.0-20151019004008-c528b747d92d
 	github.com/beego/i18n v0.0.0-20161101132742-e9308947f407
 	github.com/elazarl/goproxy v0.0.0-20190421051319-9d40249d3c2f // indirect
-	github.com/elazarl/goproxy/ext v0.0.0-20190421051319-9d40249d3c2f // indirect
 	github.com/go-sql-driver/mysql v1.4.0
 	github.com/gopherjs/gopherjs v0.0.0-20190430165422-3e4dfb77656c // indirect
 	github.com/jtolds/gls v0.0.0-20161228004933-bb0351aa7eb6 // indirect
