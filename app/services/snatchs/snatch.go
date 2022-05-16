@@ -99,9 +99,10 @@ func (this *Snatch) IsBookURL(provider *models.SnatchRule, rawurl string) bool {
 
 	rawurl = strings.TrimSpace(rawurl)
 	re, _ := regexp.Compile("(?U)" + rule.IsBookURL)
-	s := re.FindString(rawurl)
+	ss := strings.Contains(re.String(), rawurl)
+	//s := re.FindString(rawurl)
 
-	if len(s) == 0 {
+	if !ss {
 		return false
 	}
 
@@ -217,6 +218,70 @@ func (this *Snatch) FindNovel(provider *models.SnatchRule, kw string) (*SnatchIn
 	return info, nil
 }
 
+// 获分类列表
+func (this *Snatch) GetCateList(provider *models.SnatchRule, rawurl string) []string {
+	if provider == nil {
+		panic(fmt.Sprintf("provider is nil"))
+	}
+
+	rule := provider.Rules
+
+	if rule == nil {
+		panic(fmt.Sprintf("rules is nil"))
+	}
+	// 解析URL
+	rawurl = strings.TrimSpace(rawurl)
+	// 请求采集
+	listDoc, _, err := this.newHtml(rawurl, provider.Charset, true)
+	if err != nil {
+		panic(fmt.Sprintf("novel list get error"))
+	}
+
+	menus := []string{}
+	listDoc.Find(rule.BookMenuListSelector).Each(func(i int, s *goquery.Selection) {
+		subMenuUrl, ok := s.Find(rule.BookMenuNodeSelector).Attr(rule.BookMenuNodeAttr)
+		if ok {
+			menus = append(menus, subMenuUrl)
+		}
+	})
+	return menus
+}
+
+// 获取小说列表
+func (this *Snatch) GetNovelList(provider *models.SnatchRule, rawurl string) ([]SnatchInfo, error) {
+	if provider == nil {
+		panic(fmt.Sprintf("provider is nil"))
+	}
+
+	rule := provider.Rules
+
+	if rule == nil {
+		panic(fmt.Sprintf("rules is nil"))
+	}
+
+	// 解析URL
+	rawurl = strings.TrimSpace(rawurl)
+	// 请求采集
+	listDoc, _, err := this.newHtml(rawurl, provider.Charset, true)
+	if err != nil {
+		panic(fmt.Sprintf("novel list get error"))
+	}
+
+	infos := []SnatchInfo{}
+	listDoc.Find(rule.BookListSelector).Each(func(i int, s *goquery.Selection) {
+		info := SnatchInfo{}
+		suburl, ok := s.Find(rule.BookListSubSelector).Attr(rule.BookListSubAttr)
+		if !ok {
+			return
+		}
+		info.Url = suburl
+		title, _ := s.Find(rule.BookListSubSelector).Html()
+		info.Title = title
+		infos = append(infos, info)
+	})
+	return infos, err
+}
+
 // 获取一本小说
 func (this *Snatch) GetNovel(provider *models.SnatchRule, rawurl string) (*SnatchInfo, error) {
 	if provider == nil {
@@ -245,7 +310,6 @@ func (this *Snatch) GetNovel(provider *models.SnatchRule, rawurl string) (*Snatc
 	}
 
 	nov := models.NewNovel()
-
 	// 获取封面图片
 	if len(rule.BookCoverAttr) == 0 {
 		rule.BookCoverAttr = "src"
@@ -288,12 +352,12 @@ func (this *Snatch) GetNovel(provider *models.SnatchRule, rawurl string) (*Snatc
 	} else {
 		nov.Name = doc.Find(rule.BookTitleSelector).Text()
 	}
+
 	nov.Name = this.filter(rule.BookTitleFilter, nov.Name)
 	nov.Name = strings.TrimSpace(nov.Name)
 	if len(nov.Name) == 0 {
 		return nil, ErrNotNovName
 	}
-
 	// 获取小说最新章节
 	if len(rule.BookLastChapterTitleSelector) > 0 {
 		if len(rule.BookLastChapterTitleAttr) > 0 {
@@ -310,6 +374,7 @@ func (this *Snatch) GetNovel(provider *models.SnatchRule, rawurl string) (*Snatc
 	} else {
 		nov.Author = doc.Find(rule.BookAuthorSelector).Text()
 	}
+
 	nov.Author = this.filter(rule.BookAuthorFilter, nov.Author)
 	nov.Author = strings.TrimSpace(nov.Author)
 	if len(nov.Author) == 0 {
@@ -332,6 +397,7 @@ func (this *Snatch) GetNovel(provider *models.SnatchRule, rawurl string) (*Snatc
 		}
 
 		chapterLink = doc.Find(rule.BookChapterURLSelector).AttrOr(rule.BookChapterURLAttr, "")
+
 		if len(chapterLink) == 0 {
 			return nil, ErrNotNovURL
 		}

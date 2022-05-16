@@ -15,7 +15,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
@@ -67,7 +66,6 @@ func InitDB() {
 	orm.RegisterDriver(dataBase, orm.DRMySQL)
 	orm.RegisterDataBase(driverName, dataBase, mysqlUser+":"+mysqlPass+"@tcp("+mysqlURLs+")/"+dbName+"?charset="+charSet)
 
-	fmt.Println()
 	// 章节数据库配置
 	// 读取配置
 	mysqlUser = beego.AppConfig.String("mysql_chapter::user")

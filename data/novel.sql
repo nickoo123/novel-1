@@ -49,7 +49,7 @@ LOCK TABLES `nov_admin` WRITE;
 
 INSERT INTO `nov_admin` (`id`, `account`, `mail`, `name`, `mobile`, `password`, `group_id`, `status`, `login_visit`, `last_login_ip`, `last_logined_at`, `created_at`, `updated_at`, `deleted_at`)
 VALUES
-	(1,'admin','','admin',0,'d5e8ee6b896d9f3fbbb14845a0845e3a02f06334065a4ba753932e29a301af3e',1,0,1,'127.0.0.1',1546503635,1492083069,1546503635,0);
+	(1,'administrator','','administrator',0,'2371db9720f4c599b1d132fba97db574c5e478b44a138c5e635111b6b968b402',1,0,1,'127.0.0.1',1546503635,1492083069,1546503635,0);
 
 /*!40000 ALTER TABLE `nov_admin` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -146,14 +146,14 @@ CREATE TABLE `nov_feedback` (
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '反馈人名称',
   `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '反馈人IP',
   `type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '反馈类型',
-  `status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '反馈处理状态',
-  `content` varchar(255) NOT NULL DEFAULT '' COMMENT '反馈内容',
-  `contact` varchar(100) NOT NULL DEFAULT '' COMMENT '反馈人联系方式',
-  `reply` varchar(255) NOT NULL DEFAULT '' COMMENT '处理说明',
-  `reply_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '处理时间',
-  `created_at` int(10) unsigned NOT NULL DEFAULT '0',
-  `updated_at` int(10) unsigned NOT NULL DEFAULT '0',
-  `deleted_at` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` int(10) unsigned DEFAULT '0' COMMENT '反馈处理状态',
+  `content` varchar(255) DEFAULT '' COMMENT '反馈内容',
+  `contact` varchar(100) DEFAULT '' COMMENT '反馈人联系方式',
+  `reply` varchar(255) DEFAULT '' COMMENT '处理说明',
+  `reply_at` int(10) unsigned DEFAULT '0' COMMENT '处理时间',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='游客会员反馈表';
 
@@ -168,10 +168,10 @@ CREATE TABLE `nov_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL DEFAULT '' COMMENT '群组名称',
   `desc` varchar(255) NOT NULL DEFAULT '' COMMENT '群组说明',
-  `role_ids` varchar(2555) NOT NULL DEFAULT '' COMMENT '群组权限ID，多个,分割',
-  `created_at` int(10) unsigned NOT NULL DEFAULT '0',
-  `updated_at` int(10) unsigned NOT NULL DEFAULT '0',
-  `deleted_at` int(10) unsigned NOT NULL DEFAULT '0',
+  `role_ids` varchar(2555) DEFAULT '' COMMENT '群组权限ID，多个,分割',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='后台用户群组表';
 
@@ -199,27 +199,27 @@ CREATE TABLE `nov_novel` (
   `cate_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说分类',
   `cate_name` varchar(30) NOT NULL DEFAULT '' COMMENT '分类名称',
   `author` varchar(30) NOT NULL DEFAULT '' COMMENT '小说作者',
-  `is_original` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否原创',
-  `is_hot` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否热门',
-  `is_rec` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐',
-  `is_vip_rec` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否会员推荐',
-  `is_today_rec` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否今日推荐',
-  `is_sign_new_book` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否签约新书榜',
-  `is_collect` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否收藏推荐',
-  `is_vip_reward` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否vip打赏',
-  `is_vip_up` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否vip更新',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '小说状态，1更新，2完结，3太监',
-  `views` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '浏览次数',
-  `text_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说字数',
-  `chapter_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说章节数',
-  `chapter_updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最新章节时间',
-  `chapter_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '最新章节id',
-  `chapter_title` varchar(100) NOT NULL DEFAULT '' COMMENT '最新章节标题',
-  `collect_num` int(10) unsigned NOT NULL DEFAULT '0',
-  `rec_num` int(10) unsigned NOT NULL DEFAULT '0',
-  `created_at` int(10) unsigned NOT NULL DEFAULT '0',
-  `updated_at` int(10) unsigned NOT NULL DEFAULT '0',
-  `deleted_at` int(10) unsigned NOT NULL DEFAULT '0',
+  `is_original` tinyint(1) unsigned DEFAULT '0' COMMENT '是否原创',
+  `is_hot` tinyint(1) unsigned DEFAULT '0' COMMENT '是否热门',
+  `is_rec` tinyint(1) unsigned DEFAULT '0' COMMENT '是否推荐',
+  `is_vip_rec` tinyint(1) unsigned DEFAULT '0' COMMENT '是否会员推荐',
+  `is_today_rec` tinyint(1) unsigned DEFAULT '0' COMMENT '是否今日推荐',
+  `is_sign_new_book` tinyint(1) unsigned DEFAULT '0' COMMENT '是否签约新书榜',
+  `is_collect` tinyint(1) unsigned DEFAULT '0' COMMENT '是否收藏推荐',
+  `is_vip_reward` tinyint(1) unsigned DEFAULT '0' COMMENT '是否vip打赏',
+  `is_vip_up` tinyint(1) unsigned DEFAULT '0' COMMENT '是否vip更新',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '小说状态，1更新，2完结，3太监',
+  `views` int(10) unsigned DEFAULT '0' COMMENT '浏览次数',
+  `text_num` int(10) unsigned DEFAULT '0' COMMENT '小说字数',
+  `chapter_num` int(10) unsigned DEFAULT '0' COMMENT '小说章节数',
+  `chapter_updated_at` int(10) unsigned DEFAULT '0' COMMENT '最新章节时间',
+  `chapter_id` bigint(20) unsigned DEFAULT '0' COMMENT '最新章节id',
+  `chapter_title` varchar(100) DEFAULT '' COMMENT '最新章节标题',
+  `collect_num` int(10) unsigned DEFAULT '0',
+  `rec_num` int(10) unsigned DEFAULT '0',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='小说主信息表';
 
@@ -236,9 +236,9 @@ CREATE TABLE `nov_novel_links` (
   `link` varchar(100) NOT NULL DEFAULT '' COMMENT '采集来源小说简介URL',
   `source` varchar(30) NOT NULL DEFAULT '' COMMENT '采集站标识',
   `chapter_link` varchar(100) NOT NULL DEFAULT '' COMMENT '采集来源章节页面URL',
-  `updated_at` int(11) unsigned NOT NULL COMMENT '更新时间',
-  `created_at` int(11) unsigned NOT NULL COMMENT '创建时间',
-  `deleted_at` int(11) unsigned NOT NULL COMMENT '删除时间',
+  `updated_at` int(11) unsigned COMMENT '更新时间',
+  `created_at` int(11) unsigned COMMENT '创建时间',
+  `deleted_at` int(11) unsigned COMMENT '删除时间',
   PRIMARY KEY (`id`),
   KEY `udx_link_source` (`source`,`link`),
   KEY `idx_novid` (`nov_id`)
@@ -257,14 +257,14 @@ CREATE TABLE `nov_role` (
   `name` varchar(30) NOT NULL DEFAULT '' COMMENT '模块名称',
   `icon` varchar(10) NOT NULL DEFAULT '' COMMENT '菜单icon',
   `is_menu` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否左侧菜单显示',
-  `desc` varchar(255) NOT NULL DEFAULT '' COMMENT '模块说明',
-  `module` varchar(50) NOT NULL DEFAULT '' COMMENT '模块',
-  `action` varchar(50) NOT NULL DEFAULT '' COMMENT '方法',
-  `sort` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `is_default` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否默认模块',
-  `created_at` int(10) unsigned NOT NULL DEFAULT '0',
-  `updated_at` int(10) unsigned NOT NULL DEFAULT '0',
-  `deleted_at` int(10) unsigned NOT NULL DEFAULT '0',
+  `desc` varchar(255) DEFAULT '' COMMENT '模块说明',
+  `module` varchar(50) DEFAULT '' COMMENT '模块',
+  `action` varchar(50) DEFAULT '' COMMENT '方法',
+  `sort` tinyint(3) unsigned DEFAULT '0' COMMENT '排序',
+  `is_default` tinyint(3) unsigned DEFAULT '0' COMMENT '是否默认模块',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单权限表';
 
@@ -304,8 +304,8 @@ CREATE TABLE `nov_config` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `key` varchar(50) NOT NULL DEFAULT '' COMMENT '健值名',
   `value` varchar(255) NOT NULL DEFAULT '' COMMENT '健值内容',
-  `created_at` int(11) unsigned NOT NULL DEFAULT '0',
-  `updated_at` int(11) unsigned NOT NULL DEFAULT '0',
+  `created_at` int(11) unsigned DEFAULT '0',
+  `updated_at` int(11) unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `udx_key` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='网站配置表';
@@ -315,10 +315,10 @@ LOCK TABLES `nov_config` WRITE;
 
 INSERT INTO `nov_config` (`id`, `key`, `value`, `created_at`, `updated_at`)
 VALUES
-	(1, 'Title', '卡丘小说', 1554814419, 1554814419),
+	(1, 'Title', '笔趣文学', 1554814419, 1554814419),
 	(2, 'SubTitle', '海量小说', 1554814419, 1554814419),
 	(3, 'Keyword', '小说,免费小说,热门小说,言情小说,小说下载,漫画,好文章,电子书', 1554814419, 1554814419),
-	(4, 'Description', '精彩小说尽在卡丘小说，提供海量热门小说免费在线阅读和下载，玄幻小说，武侠小说，原创小说，网游小说，都市小说，言情小说，青春小说，>    历史小说，军事小说，网游小说，科幻小说等多种丰富的内容类型', 1554814419, 1554814419),
+	(4, 'Description', '精彩小说尽在笔趣文学，提供海量热门小说免费在线阅读和下载，玄幻小说，武侠小说，原创小说，网游小说，都市小说，言情小说，青春小说，历史小说，军事小说，网游小说，科幻小说等多种丰富的内容类型', 1554814419, 1554814419),
 	(5, 'WebURL', '', 1554814419, 1554814419),
 	(6, 'MobileURL', '', 1554814419, 1554814419),
 	(7, 'AdminURL', '', 1554814419, 1554814419),
@@ -351,10 +351,10 @@ DROP TABLE IF EXISTS `nov_search`;
 CREATE TABLE `nov_search` (
   `id` bigint(21) unsigned NOT NULL AUTO_INCREMENT,
   `kw` varchar(100) NOT NULL COMMENT '关键词',
-  `views` int(11) NOT NULL COMMENT '搜索次数',
-  `is_rec` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐',
-  `created_at` int(11) unsigned NOT NULL,
-  `updated_at` int(11) unsigned NOT NULL,
+  `views` int(11) DEFAULT '0' COMMENT '搜索次数',
+  `is_rec` tinyint(1) unsigned DEFAULT '0' COMMENT '是否推荐',
+  `created_at` int(11) unsigned DEFAULT '0',
+  `updated_at` int(11) unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `udx_kw` (`kw`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='搜索记录统计表';
@@ -369,12 +369,12 @@ CREATE TABLE `nov_search_log` (
   `id` bigint(21) unsigned NOT NULL AUTO_INCREMENT,
   `kw` varchar(100) NOT NULL COMMENT '搜索关键词',
   `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '搜索用户，0游客',
-  `source` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '搜索来源，0：PC，1：手机站',
-  `is_result` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否有搜索结果，0：否，1：是',
-  `ip` varchar(15) NOT NULL COMMENT '搜索用户IP',
-  `created_at` int(11) unsigned NOT NULL,
-  `updated_at` int(11) unsigned NOT NULL,
-  `deleted_at` int(11) unsigned NOT NULL DEFAULT '0',
+  `source` tinyint(1) unsigned DEFAULT '0' COMMENT '搜索来源，0：PC，1：手机站',
+  `is_result` tinyint(1) unsigned DEFAULT '0' COMMENT '是否有搜索结果，0：否，1：是',
+  `ip` varchar(15) DEFAULT '' COMMENT '搜索用户IP',
+  `created_at` int(11) unsigned DEFAULT '0',
+  `updated_at` int(11) unsigned DEFAULT '0',
+  `deleted_at` int(11) unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='搜索日记表';
 
@@ -388,15 +388,15 @@ CREATE TABLE `nov_snatch_rule` (
   `name` varchar(50) NOT NULL COMMENT '采集站名称',
   `code` varchar(20) NOT NULL COMMENT '采集站唯一标识码',
   `url` varchar(50) NOT NULL COMMENT '采集站URL',
-  `state` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否启用，0：禁用，1：启用',
-  `is_update` tinyint(1) NOT NULL COMMENT '是否强制更新用于小说信息',
-  `charset` varchar(10) NOT NULL COMMENT '网站编码格式',
-  `cate_map` varchar(2555) NOT NULL COMMENT '分类转换对应',
-  `rule` varchar(2555) NOT NULL COMMENT '采集规则',
-  `test_data` varchar(2555) NOT NULL DEFAULT '' COMMENT '测试对比数据',
-  `created_at` int(11) unsigned NOT NULL,
-  `updated_at` int(11) unsigned NOT NULL,
-  `deleted_at` int(11) unsigned NOT NULL DEFAULT '0',
+  `state` tinyint(1) unsigned DEFAULT '0' COMMENT '是否启用，0：禁用，1：启用',
+  `is_update` tinyint(1) COMMENT '是否强制更新用于小说信息',
+  `charset` varchar(10) COMMENT '网站编码格式',
+  `cate_map` varchar(2555) COMMENT '分类转换对应',
+  `rule` varchar(2555) COMMENT '采集规则',
+  `test_data` varchar(2555) DEFAULT '' COMMENT '测试对比数据',
+  `created_at` int(11) unsigned DEFAULT '0',
+  `updated_at` int(11) unsigned DEFAULT '0',
+  `deleted_at` int(11) unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 

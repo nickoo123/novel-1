@@ -585,13 +585,14 @@ func (this *Novel) Save(novel *models.Novel) error {
 	// 参数校验
 	valid := validation.Validation{}
 	valid.Required(novel.Name, "nameEmpty").Message("小说名称不能为空")
-	valid.MaxSize(novel.Name, 50, "nameMax").Message("小说名称长度不能超过50个字符")
+	valid.MaxSize(novel.Name, 100, "nameMax").Message("小说名称长度不能超过100个字符")
 	valid.Required(novel.Author, "authorEmpty").Message("小说作者不能为空")
 	valid.MaxSize(novel.Author, 20, "authorMax").Message("作者名称不能超过20个字符")
 	valid.Required(novel.CateId, "cidEmpty").Message("小说分类不能为空")
 
 	if valid.HasErrors() {
 		for _, err := range valid.Errors {
+			panic(fmt.Sprintf("Update chapter info: %s", err.Error()))
 			return err
 		}
 	}

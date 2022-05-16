@@ -89,7 +89,106 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">
-                            <span class='x-red'>*</span>名称CSS选择器
+                            <span class='x-red'>*</span>小说菜单列表选择器
+                        </label>
+                        <div class="layui-input-block">
+                            <input lay-verify="required" type="text" name="rule.BookMenuListSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookMenuListSelector}}">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">
+                            小说菜单列表获取属性
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rule.BookMenuListAttr" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookMenuListAttr}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        小说菜单列表过滤规则
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea name="rule.BookMenuListFilter" placeholder="多个规则回车分行，支持正则表达式" class="layui-textarea">{{.Rule.Rules.BookMenuListFilter}}</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>小说菜单节点选择器
+                        </label>
+                        <div class="layui-input-block">
+                            <input lay-verify="required" type="text" name="rule.BookMenuNodeSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookMenuNodeSelector}}">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">
+                            小说菜单节点获取属性
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rule.BookMenuNodeAttr" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookMenuNodeAttr}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        小说菜单节点过滤规则
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea name="rule.BookMenuNodeFilter" placeholder="多个规则回车分行，支持正则表达式" class="layui-textarea">{{.Rule.Rules.BookMenuNodeFilter}}</textarea>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>小说列表选择器
+                        </label>
+                        <div class="layui-input-block">
+                            <input lay-verify="required" type="text" name="rule.BookListSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookListSelector}}">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">
+                            小说列表选择属性
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rule.BookListAttr" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookListAttr}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        小说列表过滤规则
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea name="rule.BookListFilter" placeholder="多个规则回车分行，支持正则表达式" class="layui-textarea">{{.Rule.Rules.BookListFilter}}</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">
+                            小说列表子级选择器
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rule.BookListSubSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookListSubSelector}}">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">
+                            小说列表子级选择属性
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="rule.BookListSubAttr" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookListSubAttr}}">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>小说标题选择器
                         </label>
                         <div class="layui-input-block">
                             <input lay-verify="required" type="text" name="rule.BookTitleSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookTitleSelector}}">
@@ -97,7 +196,7 @@
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">
-                            名称选择属性
+                            小说标题选择属性
                         </label>
                         <div class="layui-input-block">
                             <input type="text" name="rule.BookTitleAttr" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookTitleAttr}}">
@@ -106,7 +205,7 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        名称过滤规则
+                        小说标题过滤规则
                     </label>
                     <div class="layui-input-block">
                         <textarea name="rule.BookTitleFilter" placeholder="多个规则回车分行，支持正则表达式" class="layui-textarea">{{.Rule.Rules.BookTitleFilter}}</textarea>
@@ -115,7 +214,7 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">
-                            <span class='x-red'>*</span>作者CSS选择器
+                            <span class='x-red'>*</span>作者选择器
                         </label>
                         <div class="layui-input-block">
                             <input lay-verify="required" type="text" name="rule.BookAuthorSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookAuthorSelector}}">
@@ -141,7 +240,7 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">
-                            分类CSS选择器
+                            分类选择器
                         </label>
                         <div class="layui-input-block">
                             <input type="text" name="rule.BookCateSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookCateSelector}}">
@@ -167,7 +266,7 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">
-                            简介CSS选择器
+                            简介选择器
                         </label>
                         <div class="layui-input-block">
                             <input type="text" name="rule.BookDescSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookDescSelector}}">
@@ -193,7 +292,7 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">
-                            缩略图CSS选择器
+                            缩略图选择器
                         </label>
                         <div class="layui-input-block">
                             <input type="text" name="rule.BookCoverSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.BookCoverSelector}}">
@@ -255,7 +354,7 @@
                 <hr />
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <span class='x-red'>*</span>章节CSS选择器
+                        <span class='x-red'>*</span>章节目录选择器
                     </label>
                     <div class="layui-input-block">
                         <input lay-verify="required" type="text" name="rule.ChapterCatalogSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.ChapterCatalogSelector}}">
@@ -263,7 +362,7 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        下一章节目录页CSS选择器
+                        下一章节目录页选择器
                     </label>
                     <div class="layui-input-block">
                         <input type="text" name="rule.ChapterNextPageSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.ChapterNextPageSelector}}" placeholder="不建议采集章节列表有分页的站点，效率太低">
@@ -280,7 +379,7 @@
                 <hr />
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <span class='x-red'>*</span>章节标题CSS选择器
+                        <span class='x-red'>*</span>章节标题选择器
                     </label>
                     <div class="layui-input-block">
                         <input lay-verfiy="required" type="text" name="rule.InfoTitleSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.InfoTitleSelector}}">
@@ -296,7 +395,7 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <span class='x-red'>*</span>章节内容CSS选择器
+                        <span class='x-red'>*</span>章节内容选择器
                     </label>
                     <div class="layui-input-block">
                         <input lay-verify="required" type="text" name="rule.InfoDescSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.InfoDescSelector}}">
@@ -312,7 +411,7 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        上一页CSS选择器
+                        上一页详情页面选择器
                     </label>
                     <div class="layui-input-block">
                         <input type="text" name="rule.InfoPrePageSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.InfoPrePageSelector}}">
@@ -320,7 +419,7 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        下一页CSS选择器
+                        下一页详情页面选择器
                     </label>
                     <div class="layui-input-block">
                         <input type="text" name="rule.InfoNextPageSelector" autocomplete="off" class="layui-input" value="{{.Rule.Rules.InfoNextPageSelector}}">

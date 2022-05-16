@@ -70,6 +70,7 @@ func (this *NovelController) Add() {
 func (this *NovelController) Crawler() {
 	// post 数据提交
 	if this.IsAjax() {
+		// novel code
 		source := this.GetString("source")
 
 		crawler, err := services.CrawlerService.Init(source)

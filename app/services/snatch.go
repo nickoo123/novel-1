@@ -126,71 +126,90 @@ func (this *Snatch) InitNovel(url string) error {
 		return err
 	}
 
-	// 获取小说
-	info, err := this.c.GetNovel(provider, url)
-	if err != nil {
-		return err
-	}
+	// 解析URL
+	url = strings.TrimSpace(url)
 
-	nov := info.Nov
+	// 获取菜单列表URL
+	cateList := this.c.GetCateList(provider, url)
 
-	// 判断小说是否已存在
-	nv := NovelService.GetByName(nov.Name)
-
-	// 下载封面图片
-	isUp := false
-	if len(nov.Cover) != 0 && (len(nv.Cover) == 0 || provider.IsUpdate == 1) {
-		imgFile, err := DownImg(nov.Cover)
-		if err != nil {
-			log.Warn("下载图片失败：", nov.Cover, err)
-			nov.Cover = ""
+	for _, cateUrl := range cateList {
+		globalUrl := ""
+		if !strings.Contains(cateUrl, provider.Url) {
+			globalUrl = url + cateUrl
 		} else {
-			nov.Cover = ConfigService.String("ViewURL") + imgFile
-		}
-		isUp = true
-		nv.Cover = nov.Cover
-	}
-
-	// 更新小说简介
-	if nov.Desc != nv.Desc && provider.IsUpdate == 1 {
-		nv.Desc = nov.Desc
-		isUp = true
-	}
-
-	// 更新小说作者名称
-	if nv.Author == "" {
-		nv.Author = nov.Author
-		isUp = true
-	}
-
-	if nv.Id > 0 {
-		// 添加采集点即可
-		if info.Url != "" {
-			NovelService.AddLink(nv.Id, info.Url, provider.Code, info.ChapterUrl)
+			globalUrl = cateUrl
 		}
 
-		// 更新小说简介内容和封面图片
-		if isUp {
-			nv.CateId = nov.CateId
-			err = NovelService.UpNovelInfo(nv)
+		// 获取小说列表
+		list, _ := this.c.GetNovelList(provider, globalUrl)
+		for _, obj := range list {
+			if !strings.Contains(obj.Url, provider.Url) {
+				obj.Url = provider.Url + obj.Url
+			}
+			// 判断小说是否已存在
+			nv := NovelService.GetByName(obj.Title)
+			if nv.Id == 0 {
+				// 获取小说
+				info, err := this.c.GetNovel(provider, obj.Url)
+				if err != nil {
+					log.Warn("Get Novel:", obj.Url, err)
+					return err
+				}
+
+				nov := info.Nov
+				// 下载封面图片
+				isUp := false
+				if len(nov.Cover) != 0 && (len(nv.Cover) == 0 || provider.IsUpdate == 1) {
+					imgFile, err := DownImg(nov.Cover)
+					if err != nil {
+						log.Warn("下载图片失败：", nov.Cover, err)
+						nov.Cover = ""
+					} else {
+						nov.Cover = ConfigService.String("ViewURL") + imgFile
+					}
+					isUp = true
+					if strings.Contains(nov.Cover, provider.Url) {
+						nv.Cover = nov.Cover
+					} else {
+						nv.Cover = provider.Url + nov.Cover
+					}
+				}
+				// 更新小说简介
+				if nov.Desc != nv.Desc && provider.IsUpdate == 1 {
+					nv.Desc = nov.Desc
+					isUp = true
+				}
+
+				// 更新小说作者名称
+				if nv.Author == "" {
+					nv.Author = nov.Author
+					isUp = true
+				}
+				if nv.Id > 0 {
+					// 更新小说简介内容和封面图片
+					if isUp {
+						nv.CateId = nov.CateId
+						err = NovelService.UpNovelInfo(nv)
+					}
+
+					return err
+				}
+				// 保存小说
+				err = NovelService.Save(nov)
+				if err != nil {
+					return err
+				}
+				novs := NovelService.GetByName(obj.Title)
+				// 添加采集点
+				if obj.Url != "" {
+					NovelService.AddLink(novs.Id, obj.Url, provider.Code, info.ChapterUrl)
+				}
+				// 添加到采集队列中
+				manager.AddTask(novs.Id)
+				nov.Name = ""
+			}
 		}
-
-		return err
 	}
-
-	// 保存小说
-	err = NovelService.Save(nov)
-	if err != nil {
-		return err
-	}
-
-	// 添加采集URL
-	if info.Url != "" {
-		NovelService.AddLink(nov.Id, info.Url, provider.Code, info.ChapterUrl)
-	}
-
-	// 添加到采集队列中
-	manager.AddTask(nov.Id)
 
 	return nil
 }

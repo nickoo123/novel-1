@@ -86,7 +86,7 @@ func (this *SnatchTask) Run() {
 		log.Debug("[小说更新任务] ID:", this.novId, " 任务无法运行，状态:", this.runStatus)
 		return
 	}
-	
+
 	// 修改运行状态
 	this.upRunStatus(TASKRUNING)
 
@@ -99,7 +99,6 @@ func (this *SnatchTask) Run() {
 
 	// 修复空章节
 	this.fixEmptyChaps()
-
 	var status uint8
 
 	for _, v := range links {
@@ -490,7 +489,7 @@ func (this *SnatchTaskManager) dayRun() {
 
 		go this.runCrawler()
 		go this.runRank()
-		
+
 		ticker = updateTicker() //复原定时任务
 	}
 }

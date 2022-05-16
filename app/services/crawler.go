@@ -97,7 +97,6 @@ func (this *Crawler) Init(provideName string) (*Crawler, error) {
 	// Init BloomFilter
 	this.URLs = bloom.NewWithEstimates(MAX_BLOOM_SIZE, BLOOM_RATE)
 	this.bookURLs = bloom.NewWithEstimates(MAX_BLOOM_SIZE, BLOOM_RATE)
-
 	return this, nil
 }
 
@@ -128,7 +127,6 @@ func (this *Crawler) run() {
 				if !ok {
 					return
 				}
-
 				this.snatchBook(link)
 
 				// 休眠1ms，防止采集速度过快被屏蔽
@@ -180,6 +178,7 @@ func (this *Crawler) runCrawler(baseURL *url.URL, referer string) {
 	doc.Find("a").Each(func(i int, s *goquery.Selection) {
 		uri, _ := s.Attr("href")
 		u, err := this.genrateURL(baseURL, uri)
+
 		if err != nil {
 			log.Warn("采集URL不可用：", uri, u, err)
 			return

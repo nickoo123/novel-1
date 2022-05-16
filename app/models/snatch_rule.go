@@ -88,43 +88,54 @@ type Rule struct {
 	IsCrawlerURL string `json:"is_crawler_url"`
 
 	// 小说简介页面采集规则
-	BookTitleSelector            string `json:"book_title_selector"` // 小说标题
-	BookTitleAttr                string `json:"book_title_attr"`     // 小说标题css选择器获取属性
-	BookTitleFilter              string `json:"book_title_filter"`
-	BookAuthorSelector           string `json:"book_author_selector"`
-	BookAuthorAttr               string `json:"book_author_attr"`
-	BookAuthorFilter             string `json:"book_author_filter"`
-	BookCateSelector             string `json:"book_cate_selector"`
-	BookCateAttr                 string `json:"book_cate_attr"`
-	BookCateFilter               string `json:"book_cate_filter"`
-	BookDescSelector             string `json:"book_desc_selector"`
-	BookDescAttr                 string `json:"book_desc_attr"`
-	BookDescFilter               string `json:"book_desc_filter"`
-	BookCoverSelector            string `json:"book_cover_selector"`
-	BookCoverAttr                string `json:"book_cover_attr"`
-	BookNoCover                  string `json:"book_no_cover"`
-	BookChapterURLSelector       string `json:"book_chapter_url_selector"`
-	BookChapterURLAttr           string `json:"book_chapter_url_attr"`
-	BookLastChapterTitleSelector string `json:"book_last_chapter_title_selector"`
-	BookLastChapterTitleAttr     string `json:"book_last_chapter_title_attr"`
+	BookMenuListSelector         string `json:"book_menu_list_selector"`          // 小说菜单列表选择器
+	BookMenuListAttr             string `json:"book_menu_list_attr"`              // 小说菜单列表获取属性
+	BookMenuListFilter           string `json:"book_menu_list_filter"`            // 小说菜单列表过滤规则
+	BookMenuNodeSelector         string `json:"book_menu_node_selector"`          // 小说菜单节点选择器
+	BookMenuNodeAttr             string `json:"book_menu_node_attr"`              // 小说菜单节点获取属性
+	BookMenuNodeFilter           string `json:"book_menu_node_filter"`            // 小说菜单节点过滤规则
+	BookListSelector             string `json:"book_list_selector"`               // 小说列表选择器
+	BookListAttr                 string `json:"book_list_attr"`                   // 小说列表获取属性
+	BookListFilter               string `json:"book_list_filter"`                 // 小说列表过滤规则
+	BookListSubSelector          string `json:"book_list_sub_selector"`           // 小说列表子级选择器
+	BookListSubAttr              string `json:"book_list_sub_attr"`               // 小说列表子级选择属性
+	BookTitleSelector            string `json:"book_title_selector"`              // 小说标题选择器
+	BookTitleAttr                string `json:"book_title_attr"`                  // 小说标题获取属性
+	BookTitleFilter              string `json:"book_title_filter"`                // 小说标题过滤规则
+	BookAuthorSelector           string `json:"book_author_selector"`             // 作者选择器
+	BookAuthorAttr               string `json:"book_author_attr"`                 // 作者选择属性
+	BookAuthorFilter             string `json:"book_author_filter"`               // 作者过滤规则
+	BookCateSelector             string `json:"book_cate_selector"`               // 分类选择器
+	BookCateAttr                 string `json:"book_cate_attr"`                   // 分类选择属性
+	BookCateFilter               string `json:"book_cate_filter"`                 // 分类过滤规则
+	BookDescSelector             string `json:"book_desc_selector"`               // 简介选择器
+	BookDescAttr                 string `json:"book_desc_attr"`                   // 简介选择属性
+	BookDescFilter               string `json:"book_desc_filter"`                 // 简介过滤规则
+	BookCoverSelector            string `json:"book_cover_selector"`              // 缩略图选择器
+	BookCoverAttr                string `json:"book_cover_attr"`                  // 缩略图选择属性
+	BookNoCover                  string `json:"book_no_cover"`                    // 无缩略图标志
+	BookChapterURLSelector       string `json:"book_chapter_url_selector"`        // 章节目录页链接CSS选择器
+	BookChapterURLAttr           string `json:"book_chapter_url_attr"`            // 章节目录页链接选择属性
+	BookLastChapterTitleSelector string `json:"book_last_chapter_title_selector"` // 最新章节标题CSS选择器
+	BookLastChapterTitleAttr     string `json:"book_last_chapter_title_attr"`     // 最新章节选择属性
 
 	// 章节目录采集规则
-	ChapterCatalogSelector  string `json:"chapter_catalog_selector"`
+	ChapterCatalogSelector  string `json:"chapter_catalog_selector"`   // 章节目录选择器
 	ChapterNextPageSelector string `json:"chapter_next_page_selector"` // 章节目录下一页选择器
 	ChapterAbandonNum       int    `json:"chapter_abandon_num"`        // 丢弃章节数（最新章节）
 
 	// 详情页面采集规则
-	InfoTitleSelector    string `json:"info_title_selector"`
-	InfoTitleFilter      string `json:"info_title_filter"`
-	InfoDescSelector     string `json:"info_desc_selector"`
-	InfoDescFilter       string `json:"info_desc_filter"`
-	InfoPrePageSelector  string `json:"info_pre_page_selector"`
-	InfoNextPageSelector string `json:"info_next_page_selector"`
+	InfoTitleSelector    string `json:"info_title_selector"`     // 章节标题选择器
+	InfoTitleFilter      string `json:"info_title_filter"`       // 章节标题过滤规则
+	InfoDescSelector     string `json:"info_desc_selector"`      // 章节内容选择器
+	InfoDescFilter       string `json:"info_desc_filter"`        // 章节内容过滤规则
+	InfoPrePageSelector  string `json:"info_pre_page_selector"`  // 上一页详情页面选择器
+	InfoNextPageSelector string `json:"info_next_page_selector"` // 下一页详情页面选择器
 
 	// 搜索页面采集规则
-	FindURL             string `json:"find_url"`
-	FindCharset         string `json:"find_charset"`
-	FindBookURLSelector string `json:"find_book_url_selector"`
+	FindURL             string `json:"find_url"`               // 搜索小说URL
+	FindCharset         string `json:"find_charset"`           // 搜索页面编码
+	FindBookURLSelector string `json:"find_book_url_selector"` // 小说链接CSS选择器
 }
 
 type ArgsListRule struct {
@@ -304,8 +315,8 @@ func (m *SnatchRule) GetAll(args *ArgsListRule) []*SnatchRule {
 // 获取是否启用
 func (m SnatchRule) StateName() string {
 	if m.State == 0 {
-		return `<span class="layui-btn layui-btn-primary layui-btn-xs btn-set-state">禁用</span>`
+		return `<span class="layui-btn layui-btn-primary layui-btn-xs btn-set-state">启用</span>`
 	}
 
-	return `<span class="layui-btn layui-btn-xs btn-set-un-state">启用</span>`
+	return `<span class="layui-btn layui-btn-xs btn-set-un-state">禁用</span>`
 }
