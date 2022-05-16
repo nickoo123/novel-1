@@ -322,6 +322,7 @@ a {
 
 .nav-logo .icon {
 	background-image: url(../img/logo-2.png);
+	background-size: 106px 26px;
 }
 
 .icon-logo {
