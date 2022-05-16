@@ -26,11 +26,15 @@ _testmain.go
 .DS_Store
 *.swp
 *.swo
+dump.rdb
+.gitattributes
 
 static/up/*
 conf/app.conf
 conf/data.conf
 
+/vendor
+/.idea
 /novel
 /novel-linux64
 novel.log
