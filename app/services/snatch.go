@@ -168,11 +168,6 @@ func (this *Snatch) InitNovel(url string) error {
 						nov.Cover = ConfigService.String("ViewURL") + imgFile
 					}
 					isUp = true
-					if strings.Contains(nov.Cover, provider.Url) {
-						nv.Cover = nov.Cover
-					} else {
-						nv.Cover = provider.Url + nov.Cover
-					}
 				}
 				// 更新小说简介
 				if nov.Desc != nv.Desc && provider.IsUpdate == 1 {
