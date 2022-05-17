@@ -27,7 +27,7 @@ _testmain.go
 dump.rdb
 static/up/*
 
-/vendor
+vendor/*
 /.idea
 /novel
 /novel-linux64
