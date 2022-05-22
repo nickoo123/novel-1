@@ -53,6 +53,14 @@ type CateMap struct {
 
 // 采集测试对比数据
 type SnatchTestData struct {
+	// 小说菜单
+	BookMenuList string `json:"book_menu_list"` // 小说菜单列表
+	BookMenuNode string `json:"book_menu_node"` // 小说菜单节点
+
+	// 小说列表
+	BookList    string `json:"book_list"`     // 小说列表
+	BookListSub string `json:"book_list_sub"` // 小说列表子级
+
 	// 小说简介页面
 	BookURL        string `json:"book_url"`         // 小说简介URL
 	BookTitle      string `json:"book_title"`       // 小说标题
