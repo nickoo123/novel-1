@@ -134,8 +134,8 @@ func (this *Snatch) InitNovel(url string) error {
 
 	for _, cateUrl := range cateList {
 		globalUrl := ""
-		if !strings.Contains(cateUrl, provider.Url) {
-			globalUrl = url + cateUrl
+		if (!strings.Contains(strings.ToLower(cateUrl), "http://") && !strings.Contains(strings.ToLower(cateUrl), "https://")) && !strings.Contains(cateUrl, provider.Url) {
+			globalUrl = url + "/" + cateUrl
 		} else {
 			globalUrl = cateUrl
 		}
@@ -143,7 +143,7 @@ func (this *Snatch) InitNovel(url string) error {
 		// 获取小说列表
 		list, _ := this.c.GetNovelList(provider, globalUrl)
 		for _, obj := range list {
-			if !strings.Contains(obj.Url, provider.Url) {
+			if (!strings.Contains(strings.ToLower(obj.Url), "http://") && !strings.Contains(strings.ToLower(obj.Url), "https://")) && !strings.Contains(obj.Url, provider.Url) {
 				obj.Url = provider.Url + obj.Url
 			}
 			// 判断小说是否已存在
