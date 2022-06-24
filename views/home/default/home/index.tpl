@@ -336,7 +336,7 @@ $(document).ready(function() {
 			  books = books + 
 			  '  ><div class="open"> '+
 			  '      <em class="rank rank1">'+(a+1)+'</em> '+
-			  '      <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" target="_blank" class="rank-pic"> '+
+			  '      <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" title="'+d[a].name+'" target="_blank" class="rank-pic"> '+
 			   '         <img src="'+cover+'" alt="'+d[a].name+'" style="width: 74px;height: 102px;" /> '+
 			   '     </a> '+
 			   '     <div class="b-info"> '+
@@ -396,7 +396,7 @@ $(document).ready(function() {
 
 		  books = books + 
 		  '<li> '+
-		  '      <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" target="_blank" class="pic-container">'+
+		  '      <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" title="' + d[a].name + '" target="_blank" class="pic-container">'+
 		  '          <img src="' + cover + '" alt="' + d[a].name + '" style="width: 120px;height: 163px;" />'+
 		  '      </a>'+
 		  '      <div class="book-info">'+
