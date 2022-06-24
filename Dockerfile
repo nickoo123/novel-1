@@ -11,19 +11,19 @@ RUN export GOPROXY=https://goproxy.cn && \
     go get github.com/vckai/novel && go mod vendor && \
     CGO_ENABLED=1 go build -a
 
-RUN pwd && ls
-
-FROM alpine
-
-RUN mkdir -p /go && export GOTMPDIR=/go
-WORKDIR /go
-COPY --from=builder /code/novel /go
-COPY --from=builder /code/conf /go/conf
-COPY --from=builder /code/lang /go/lang
-COPY --from=builder /code/static /go/static
-COPY --from=builder /code/views /go/views
-COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+#RUN pwd && ls
+#
+#FROM alpine
+#
+#RUN mkdir -p /go && export GOTMPDIR=/go
+#WORKDIR /go
+#COPY --from=builder /code/novel /go
+#COPY --from=builder /code/conf /go/conf
+#COPY --from=builder /code/lang /go/lang
+#COPY --from=builder /code/static /go/static
+#COPY --from=builder /code/views /go/views
+#COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 EXPOSE 8081
 
-CMD ["./novel"]
+#CMD ["./novel"]

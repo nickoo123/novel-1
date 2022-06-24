@@ -1,7 +1,7 @@
 <div class="header-box">
 	<div class="header" style="height:78px">
 	  <div class="searchbox">
-	      <a href="/" class="logo">
+	      <a href="/" title="{{.aOut.Title}}" class="logo">
 	          <img src="{{.aOut.Logo}}" alt="{{.aOut.Title}}" style="max-width: 150px;">
 	      </a>
 	      <form action="{{urlfor "home.HomeController.Search"}}" method="get" class="searchform" id="searchForm" onsubmit="return checkSearch()">
@@ -13,7 +13,7 @@
 	          <div class="sbtn1"><input type="submit" value="搜索" onmouseout="this.className='btn1'" onmouseup="this.className='sbtn1'" onmousedown="this.className='btnactive'" id="searchBtn"></div>
 	          <div class="hotwords">热搜书籍：
                 {{range .RecKw}}
-	          		<a href="{{urlfor "home.HomeController.Search" "kw" .Kw}}" target="_blank">{{.Kw}}</a>
+	          		<a href="{{urlfor "home.HomeController.Search" "kw" .Kw}}" title="{{.Kw}}" target="_blank">{{.Kw}}</a>
                 {{end}}
 	          </div>
 	      </form>
@@ -47,7 +47,7 @@
 	          <div class="sort-box" id="allsortbox" style="display: none;">
 	              <ul>
 					{{range .Cates}}
-	          			<li><a href="{{urlfor "home.HomeController.Cate" "id" .Id}}" class="top-a">{{.Name}}</a></li>
+	          			<li><a href="{{urlfor "home.HomeController.Cate" "id" .Id}}" title="{{.Name}}" class="top-a">{{.Name}}</a></li>
 					{{end}}
 	              </ul>
 	          </div>

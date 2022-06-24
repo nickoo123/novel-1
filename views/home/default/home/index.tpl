@@ -14,7 +14,7 @@ var picCount = {{.BannerSlicesCount}};
     <ul class="r-banner-list" id="scrollBox">
 		{{range .BannerSlices}}
 		 <li style="{{css .Ext}}">
-			<a href="{{.Link}}" target="_blank" class="img-box">
+			<a href="{{.Link}}" title="{{.Name}}" target="_blank" class="img-box">
 				<img src="{{.Img}}" alt="{{.Name}}">
 			</a>
 		</li>
@@ -80,12 +80,12 @@ $(document).ready(function() {
          <ul class="re-book" id="re_book_{{$key}}" {{if ne $key 0}}style="display: none;"{{end}}>
 			 {{range $k, $v := $val}}
               <li>
-                <a href="{{urlfor "home.BookController.Index" "id" $v.Id}}" target="_blank" class="re-pic-box">
+                <a href="{{urlfor "home.BookController.Index" "id" $v.Id}}" title="{{$v.Name}}" target="_blank" class="re-pic-box">
                     <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne $v.Cover ""}}data-echo="{{$v.Cover}}"{{end}} alt="{{$v.Name}}" style="width: 179px;height: 249px;">
                 </a>
-                <h2 class="re-book-name over-txt"><a href="{{urlfor "home.BookController.Index" "id" $v.Id}}" target="_blank">{{$v.Name}}</a></h2>
+                <h2 class="re-book-name over-txt"><a href="{{urlfor "home.BookController.Index" "id" $v.Id}}" title="{{$v.Name}}" target="_blank">{{$v.Name}}</a></h2>
                 <span class="source over-txt">{{$v.Author}}</span>
-                <a href="{{urlfor "home.HomeController.Cate" "id" $v.CateId}}" class="r-type">{{$v.CateName}}</a>
+                <a href="{{urlfor "home.HomeController.Cate" "id" $v.CateId}}" title="{{$v.CateName}}" class="r-type">{{$v.CateName}}</a>
               </li>
 			{{end}}
         </ul>
@@ -118,11 +118,11 @@ $(document).ready(function() {
         <ul class="free-book">
 		{{range .NovNews}}
         	 <li>
-                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" target="_blank" class="f-pic-box">
+                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank" class="f-pic-box">
                     <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} alt="{{.Name}}" style="height:167px;width: 119px;">
                 </a>
                 <h3 class="f-book-name over-txt">
-                	<a href="{{urlfor "home.BookController.Index" "id" .Id}}" target="_blank">{{.Name}}</a>
+                	<a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">{{.Name}}</a>
                 </h3>
                 <span class="source over-txt">{{.Author}}</span>
             </li>
@@ -142,7 +142,7 @@ $(document).ready(function() {
 
 <div class="r-show">
 	{{range $k, $v := .BannerSmalls}}
- 	<a href="{{$v.Link}}" target="_blank" class="{{if eq $k 0}} lf-img{{else}}rt-img{{end}}">
+ 	<a href="{{$v.Link}}" title="{{$v.Name}}" target="_blank" class="{{if eq $k 0}} lf-img{{else}}rt-img{{end}}">
         <img src="{{$v.Img}}" alt="{{$v.Name}}">
     </a>
 	{{end}}
@@ -152,7 +152,7 @@ $(document).ready(function() {
     <h1 class="r-tit"><i class="r-ico choice-ico"></i>分类精选</h1>
     <div class="sort-choice ">
 	{{range $k, $v := .CateRecs}}
-    	  <a href="javascript:void(0)" onmouseover="getChoiceBook('{{$v.Id}}', this)" {{if eq $k 0}}class="cur"{{end}}>{{$v.Name}}</a>{{if ne $k $.CateRecsNum}}<span>|</span>{{end}}
+    	  <a href="javascript:void(0)" title="{{$v.Name}}" onmouseover="getChoiceBook('{{$v.Id}}', this)" {{if eq $k 0}}class="cur"{{end}}>{{$v.Name}}</a>{{if ne $k $.CateRecsNum}}<span>|</span>{{end}}
 	{{end}}
     </div>
     <ul class="choice-book" id="choice_book"></ul>
@@ -164,9 +164,9 @@ $(document).ready(function() {
         <ul class="boy-list">
 		{{range .NovSignNewBooks}}
         	 <li>
-                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" target="_blank">
+                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
                     <div class="rotate">
-                        <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} style="top: 20px; left: 47px; z-index: 2;" class="cur">
+                        <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" alt="{{.Name}}" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} style="top: 20px; left: 47px; z-index: 2;" class="cur">
                     </div>
                     <span class="r-sort over-txt">{{.Name}}</span>
                     <span class="cover"></span>
@@ -180,9 +180,9 @@ $(document).ready(function() {
         <ul class="girl-list">
 		{{range .NovCollects}}
         	 <li>
-                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" target="_blank">
+                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
                     <div class="rotate">
-                        <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} style="top: 20px; left: 47px; z-index: 2;" class="cur">
+                        <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" alt="{{.Name}}" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} style="top: 20px; left: 47px; z-index: 2;" class="cur">
                     </div>
                     <span class="r-sort over-txt">{{.Name}}</span>
                     <span class="cover"></span>
@@ -198,11 +198,11 @@ $(document).ready(function() {
         <h1 class="r-tit"><i class="r-ico hot-ico"></i>大家都在看</h1>
 		{{if not_nil .NovRank}}
         <div class="d-book">
-            <a href="{{urlfor "home.BookController.Index" "id" .NovRank.Id}}" target="_blank" class="re-pic-box">
+            <a href="{{urlfor "home.BookController.Index" "id" .NovRank.Id}}" title="{{.NovRank.Name}}" target="_blank" class="re-pic-box">
                 <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .NovRank.Cover ""}}data-echo="{{.NovRank.Cover}}"{{end}} alt="{{.NovRank.Name}}">
             </a>
             <h2 class="re-book-name over-txt">
-            	<a href="{{urlfor "home.BookController.Index" "id" .NovRank.Id}}" target="_blank">{{.NovRank.Name}}</a>
+            	<a href="{{urlfor "home.BookController.Index" "id" .NovRank.Id}}" title="{{.NovRank.Name}}" target="_blank">{{.NovRank.Name}}</a>
             </h2>
             <span class="source over-txt">{{.NovRank.Author}}</span>
             <div class="brief-intro">{{str2html .NovRank.Desc}}</div>
@@ -214,11 +214,11 @@ $(document).ready(function() {
         <ul class="hot-book">
 		{{range .NovRanks}}
           	<li>
-                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" target="_blank" class="f-pic-box">
+                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank" class="f-pic-box">
                     <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} alt="{{.Name}}" style="width: 119px;height: 167px;">
                 </a>
                 <h3 class="f-book-name over-txt">
-					<a href="{{urlfor "home.BookController.Index" "id" .Id}}" target="_blank">{{.Name}}</a>
+					<a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">{{.Name}}</a>
 				</h3>
                 <span class="source over-txt">{{.Author}}</span>
             </li>

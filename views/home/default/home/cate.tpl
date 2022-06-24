@@ -82,11 +82,11 @@
 									</a>
 								</div>
 								<div class="book-mid-info">
-									<h4><a href="{{urlfor "home.BookController.Index" "id" .Id}}" target="_blank">{{.Name}}</a></h4>
+									<h4><a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">{{.Name}}</a></h4>
 									<p class="author">
 										<a class="name" href="javascript:;">{{.Author}}</a>
 										<em>|</em>
-										<a href="{{urlfor "home.HomeController.Cate" "id" .CateId}}">{{.CateName}}</a>
+										<a href="{{urlfor "home.HomeController.Cate" "id" .CateId}}" title="{{.CateName}}">{{.CateName}}</a>
 										<em>|</em>
 										<span>{{.StatusName}}</span>
 									</p>

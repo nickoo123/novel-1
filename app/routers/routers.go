@@ -58,6 +58,9 @@ func mRouters() {
 
 		beego.NSRouter("/", &m.HomeController{}, "GET:Index"),
 
+		// robot
+		beego.NSRouter("/robot.txt", &m.HomeController{}, "GET:Robot"),
+
 		// 首页路由
 		beego.NSAutoRouter(&m.HomeController{}),
 

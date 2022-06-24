@@ -15,12 +15,18 @@
 package m
 
 import (
+	"fmt"
 	"github.com/vckai/novel/app/models"
 	"github.com/vckai/novel/app/services"
 )
 
 type HomeController struct {
 	BaseController
+}
+
+// robot
+func (this *HomeController) Robot() {
+	fmt.Println("User-agent:*")
 }
 
 // 首页

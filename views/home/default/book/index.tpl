@@ -75,7 +75,7 @@
 	      <ul class="book-lst" id="recommUl">
 		  {{range .NovCateRanks}}
 	      	<li> 
-	      		<a href="{{urlfor "home.BookController.Index" "id" .Id}}" target="_blank" class="book-lst-tab">
+	      		<a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.CateName}}-{{.Name}}" target="_blank" class="book-lst-tab">
 		      		<img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} height="100" width="75" alt="{{.Name}}">
 		      		<div class="book-lst-tit">{{.Name}}</div>
 		      		<div class="book-lst-txt book-lst-clr2">{{.CateName}}</div>
