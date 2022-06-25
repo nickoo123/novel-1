@@ -111,7 +111,15 @@
             }
         }
     }
-})(window);  
+    function isMobile() {
+        if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+            if (location.hostname !== 'wap.biqugesk.cc') {
+                location.replace('https://wap.biqugesk.cc'+(location.pathname).replace('/m',''));
+            }
+        }
+    }
+    isMobile();
+})(window);
 function fmtStr(b, a) {
     if (!b) {
         return ""
