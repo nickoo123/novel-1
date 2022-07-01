@@ -8,6 +8,8 @@ github.com/astaxie/beego v0.0.0-20170123131258-b55e20ac60c5 h1:OVHHfd5T99oQv46EK
 github.com/astaxie/beego v0.0.0-20170123131258-b55e20ac60c5/go.mod h1:0R4++1tUqERR0WYFWdfkcrsyoVBCG4DgpDGokT3yb+U=
 github.com/axgle/mahonia v0.0.0-20151019004008-c528b747d92d h1:23UwR+FuqjkWtYdp/s2r/xq23IFmk7zVzUx04xg4OJw=
 github.com/axgle/mahonia v0.0.0-20151019004008-c528b747d92d/go.mod h1:Q8n74mJTIgjX4RBBcHnJ05h//6/k6foqmgE45jTQtxg=
+github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394 h1:OYA+5W64v3OgClL+IrOD63t4i/RW7RqrAVl9LTZ9UqQ=
+github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394/go.mod h1:Q8n74mJTIgjX4RBBcHnJ05h//6/k6foqmgE45jTQtxg=
 github.com/beego/i18n v0.0.0-20161101132742-e9308947f407 h1:WtJfx5HqASTQp7HfiZldnin8KQV2futplF3duGp5PGc=
 github.com/beego/i18n v0.0.0-20161101132742-e9308947f407/go.mod h1:KLeFCpAMq2+50NkXC8iiJxLLiiTfTqrGtKEVm+2fk7s=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=

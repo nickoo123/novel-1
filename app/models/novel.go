@@ -169,7 +169,7 @@ func (m *Novel) GetByName(name string) *Novel {
 		return &Novel{}
 	}
 
-	m.query().Filter("name", name).One(&n, "id", "author", "cover", "desc", "created_at")
+	m.query().Filter("name", strings.TrimSpace(name)).One(&n, "id", "author", "cover", "desc", "created_at")
 
 	return &n
 }

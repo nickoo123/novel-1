@@ -220,7 +220,8 @@ CREATE TABLE `nov_novel` (
   `created_at` int(10) unsigned DEFAULT '0',
   `updated_at` int(10) unsigned DEFAULT '0',
   `deleted_at` int(10) unsigned DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_novel` (`name`,`author`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='小说主信息表';
 
 

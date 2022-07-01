@@ -7,7 +7,7 @@ require (
 	github.com/Unknwon/goconfig v0.0.0-20161121224340-87a46d97951e // indirect
 	github.com/andybalholm/cascadia v0.0.0-20161224141413-349dd0209470 // indirect
 	github.com/astaxie/beego v0.0.0-20170123131258-b55e20ac60c5
-	github.com/axgle/mahonia v0.0.0-20151019004008-c528b747d92d
+	github.com/axgle/mahonia v0.0.0-20180208002826-3358181d7394
 	github.com/beego/i18n v0.0.0-20161101132742-e9308947f407
 	github.com/elazarl/goproxy v0.0.0-20190421051319-9d40249d3c2f // indirect
 	github.com/go-sql-driver/mysql v1.4.0
