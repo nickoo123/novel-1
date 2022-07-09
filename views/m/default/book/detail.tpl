@@ -2,7 +2,7 @@
 <link href="{{.mOut.ViewUrl}}css/detail.css?v=aa6bf34e" rel="stylesheet" type="text/css">
 
 <header class="hd-bar">
-	<a href="javascript:history.go(-1);" class="search-back" id="historyBack"></a>
+	<a href="javascript:history.go(-1);" title="{{.Nov.Name}}" class="search-back" id="historyBack"></a>
 	<h1>{{.Nov.Name}}</h1>
 	<a href="{{urlfor "m.HomeController.Index"}}" class="search-home"></a>
 </header>

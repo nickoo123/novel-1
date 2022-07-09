@@ -12,7 +12,7 @@
 	<ul class="vertical-list multiline-intro" id="cate_list">
 
 		{{range .Novels}}
-		<a href="{{urlfor "m.BookController.Index" "id" .Id}}">
+		<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}-{{.CateName}}-{{.ChapterTitle}}">
 		<li>
 			<div class="book-cover book-cover-size72"><img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.Cover}}" alt="{{.Name}}"></div>
 			<div class="book-detail">

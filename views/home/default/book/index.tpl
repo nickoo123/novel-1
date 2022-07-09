@@ -13,7 +13,7 @@
 				<div class="swiper-wrapper">
 					{{range .BannerSlices}}
 					<div class="swiper-slide">
-						<a href="{{.Link}}" target="_blank">
+						<a href="{{.Link}}" title="{{.Name}}" target="_blank">
 							<img src="{{.Img}}" alt="{{.Name}}" height="453" width="270">
 						</a>
 					</div>
@@ -26,7 +26,7 @@
 	    <!-- //ad -->
 	    <!-- category -->
 	    <ul class="category-lst">
-	      <li><a href="{{urlfor "home.HomeController.Index"}}" class="category-tab txtlink">首页<i></i></a></li>
+	      <li><a href="{{urlfor "home.HomeController.Index"}}" title="{{.Nov.Name}}" class="category-tab txtlink">首页<i></i></a></li>
 	      <li>{{.Nov.Name}}</li>
 	    </ul>
 	    <!-- //category -->

@@ -36,10 +36,10 @@
 
     <div class="column-wrap">
         <h2 class="index-title"><a href="javascript:void(0)" class="index-sort">倒序</a><strong>目录</strong>共{{.Nov.ChapterNum}}章</h2>
-        <div class="index-new"><a href="{{urlfor "m.BookController.Detail" "id" .Nov.ChapterId "novid" .Nov.Id}}"><span class="index-tag">{{datetime .Nov.ChapterUpdatedAt "01-02 15:04"}}</span>{{.Nov.ChapterTitle}}</a></div>
+        <div class="index-new"><a href="{{urlfor "m.BookController.Detail" "id" .Nov.ChapterId "novid" .Nov.Id}}" title="{{.Nov.ChapterTitle}}"><span class="index-tag">{{datetime .Nov.ChapterUpdatedAt "01-02 15:04"}}</span>{{.Nov.ChapterTitle}}</a></div>
         <ol class="index-list" id="index-list">
 		{{range .Chaps}}
-			<a href="{{urlfor "m.BookController.Detail" "id" .Id "novid" $.Nov.Id}}">	
+			<a href="{{urlfor "m.BookController.Detail" "id" .Id "novid" $.Nov.Id}}" title="{{.Title}} ">
             <li>
             	<b>[{{.ChapterNo}}]</b> {{.Title}} 
             </li>

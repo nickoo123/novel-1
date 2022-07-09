@@ -11,7 +11,7 @@
                     <ul class="row-1" type="category">
                         <li data-id="-1" {{if lt .Search.cate_id 1}}class="act"{{end}}><a href="javascript:gourl('id', 0);">全部</a></li>
 						{{range .Cates}}
-                        <li data-id="{{.Id}}" {{if eq $.CateId .Id}}class="act"{{end}}><a href="javascript:gourl('id', {{.Id}});">{{.Name}}</a></li>
+                        <li data-id="{{.Id}}" {{if eq $.CateId .Id}}class="act"{{end}}><a href="javascript:gourl('id', {{.Id}});" title="{{.Name}}">{{.Name}}</a></li>
 						{{end}}
                     </ul>
                 </div>
@@ -77,14 +77,14 @@
 						{{range .Novs}}
                             <li>
 								<div class="book-img-box">
-									<a href="{{urlfor "home.BookController.Index" "id" .Id}}" target="_blank" class="f-pic-box">
-										<img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}}>
+									<a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank" class="f-pic-box">
+										<img src="{{$.mOut.ViewUrl}}img/nocover.jpg" alt="{{.Name}}" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}}>
 									</a>
 								</div>
 								<div class="book-mid-info">
 									<h4><a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">{{.Name}}</a></h4>
 									<p class="author">
-										<a class="name" href="javascript:;">{{.Author}}</a>
+										<a class="name" href="javascript:;" title="{{.Author}}">{{.Author}}</a>
 										<em>|</em>
 										<a href="{{urlfor "home.HomeController.Cate" "id" .CateId}}" title="{{.CateName}}">{{.CateName}}</a>
 										<em>|</em>

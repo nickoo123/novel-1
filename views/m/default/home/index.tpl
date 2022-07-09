@@ -50,7 +50,7 @@
         <blockquote>
             <div id="broadcast">
 			{{range .NovTodayRecs}}
-                <a href="{{urlfor "m.BookController.Index" "id" .Id}}" id="boradcast_0" type="3">
+                <a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}" id="boradcast_0" type="3">
                     {{.Name}}
                 </a>
 			{{end}}
@@ -66,7 +66,7 @@
 				<tr>
 				{{range .NovRecs}}
 					<td>
-					<a href="{{urlfor "m.BookController.Index" "id" .Id}}">
+					<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}">
 						<div class="book-detail">
 							<div class="book-cover"><img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.Cover}}" alt="{{.Name}}"></div>
 							<h3 class="book-title">{{.Name}}</h3>
@@ -83,7 +83,7 @@
         <h2 class="column-title">小编热推</h2>
 		{{if not_nil .NovHot}}
         <ul class="vertical-list">
-			<a href="{{urlfor "m.BookController.Index" "id" .NovHot.Id}}">
+			<a href="{{urlfor "m.BookController.Index" "id" .NovHot.Id}}" title="{{.NovHot.Name}}-{{.NovHot.CateName}}">
             <li>
                 <div class="book-cover book-cover-size78">
                     <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.NovHot.Cover}}" alt="{{.NovHot.Name}}">
@@ -103,7 +103,7 @@
  
 		{{range .NovHots}}
         <ul class="vertical-list3">
-			<a href="{{urlfor "m.BookController.Index" "id" .Id}}">
+			<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}">
             <li>
                 <h3 class="book-title">
                         {{.Name}}<em class="book-author">{{.Author}}</em>
@@ -123,7 +123,7 @@
                     <tr>
 					{{range .NovVipRecs}}
                         <td>
-						<a href="{{urlfor "m.BookController.Index" "id" .Id}}">
+						<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}">
                             <div class="book-detail">
                                 <div class="book-cover">
                                     <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.Cover}}" alt="{{.Name}}">

@@ -22,7 +22,7 @@
 {{if .Novels}}
 	<ul class="vertical-list multiline-intro" id="cate_list">
 		{{range .Novels}}
-		<a href="{{urlfor "m.BookController.Index" "id" .Id}}">
+		<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{str2html .Name}}-{{.CateName}}-{{.ChapterTitle}}">
 		<li>
 			<div class="book-cover book-cover-size72"><img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.Cover}}" alt="{{html2str .Name}}"></div>
 			<div class="book-detail">
@@ -53,7 +53,7 @@
 	</div>
 	<ul class="vertical-list multiline-intro" id="cate_list">
 		{{range .SnatchNovels}}
-		<a href="{{urlfor "m.SnatchController.Index" "url" .Url "source" .Source}}">
+		<a href="{{urlfor "m.SnatchController.Index" "url" .Url "source" .Source}}" title="{{str2html .Nov.Name}}-{{.Title}}-{{.Nov.ChapterTitle}}">
 		<li>
 			<div class="book-cover book-cover-size72">
 				<img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.Nov.Cover}}" alt="{{html2str .Nov.Name}}">

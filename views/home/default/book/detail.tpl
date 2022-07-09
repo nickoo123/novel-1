@@ -204,7 +204,7 @@
                                 <em class="bookshelf-book-title">{{.Nov.Name}}</em>
                                 <a href="{{urlfor "home.BookController.Index" "id" .Nov.Id}}"
                                     class="bookshelf-book-cover">
-                                    <img src="{{.mOut.ViewUrl}}img/nocover.jpg"
+                                    <img src="{{.mOut.ViewUrl}}img/nocover.jpg" alt="{{.Nov.Name}}"
                                         {{if ne .Nov.Cover ""}}data-echo="{{.Nov.Cover}}" {{end}}>
                                 </a>
                             </div>
