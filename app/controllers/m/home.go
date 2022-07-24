@@ -38,7 +38,7 @@ func (this *HomeController) Index() {
 	this.Data["NovRecs"] = services.NovelService.GetRecs(3, 0)
 
 	// 获取小编热推
-	NovHots := services.NovelService.GetHots(5, 0)
+	NovHots := services.NovelService.GetHots(40, 0)
 
 	this.Data["NovHot"] = nil
 	this.Data["NovHots"] = nil

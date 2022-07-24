@@ -118,13 +118,15 @@ $(document).ready(function() {
         <ul class="free-book">
 		{{range .NovNews}}
         	 <li>
-                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank" class="f-pic-box">
-                    <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} alt="{{.Name}}" style="height:167px;width: 119px;">
-                </a>
-                <h3 class="f-book-name over-txt">
-                	<a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">{{.Name}}</a>
-                </h3>
-                <span class="source over-txt">{{.Author}}</span>
+        	    <dl>
+                    <dd class="link_title">
+                        <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
+                            [{{.CateName}}] {{.Name}}
+                        </a>
+                    </dd>
+                    <dd class="author">{{.Author}}</dd>
+                    <dd class="date">{{if compare .ChapterUpdatedAt 0}}{{datetime .UpdatedAt "01-02 15:04"}}{{else}}{{datetime .ChapterUpdatedAt "01-02 15:04"}}{{end}}</dd>
+                </dl>
             </li>
 		{{end}}
         </ul>

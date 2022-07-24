@@ -15,6 +15,7 @@
 package orm
 
 import (
+	"context"
 	"database/sql"
 	"reflect"
 	"time"
@@ -106,6 +107,17 @@ type Ormer interface {
 	// 	...
 	// 	err = o.Rollback()
 	Begin() error
+	// begin transaction with provided context and option
+	// the provided context is used until the transaction is committed or rolled back.
+	// if the context is canceled, the transaction will be rolled back.
+	// the provided TxOptions is optional and may be nil if defaults should be used.
+	// if a non-default isolation level is used that the driver doesn't support, an error will be returned.
+	// for example:
+	//  o := NewOrm()
+	// 	err := o.BeginTx(context.Background(), &sql.TxOptions{Isolation: sql.LevelRepeatableRead})
+	//  ...
+	//  err = o.Rollback()
+	BeginTx(ctx context.Context, opts *sql.TxOptions) error
 	// commit transaction
 	Commit() error
 	// rollback transaction
@@ -145,6 +157,16 @@ type QuerySeter interface {
 	//	//sql-> WHERE T0.`profile_id` IS NOT NULL AND NOT T0.`Status` IN (?) OR T1.`age` >  2000
 	//	num, err := qs.SetCond(cond1).Count()
 	SetCond(*Condition) QuerySeter
+	// get condition from QuerySeter.
+	// sql's where condition
+	//  cond := orm.NewCondition()
+	//  cond = cond.And("profile__isnull", false).AndNot("status__in", 1)
+	//  qs = qs.SetCond(cond)
+	//  cond = qs.GetCond()
+	//  cond := cond.Or("profile__age__gt", 2000)
+	//  //sql-> WHERE T0.`profile_id` IS NOT NULL AND NOT T0.`Status` IN (?) OR T1.`age` >  2000
+	//  num, err := qs.SetCond(cond).Count()
+	GetCond() *Condition
 	// add LIMIT value.
 	// args[0] means offset, e.g. LIMIT num,offset.
 	// if Limit <= 0 then Limit will be set to default limit ,eg 1000
@@ -180,6 +202,10 @@ type QuerySeter interface {
 	//    Distinct().
 	//    All(&permissions)
 	Distinct() QuerySeter
+	// set FOR UPDATE to query.
+	// for example:
+	//  o.QueryTable("user").Filter("uid", uid).ForUpdate().All(&users)
+	ForUpdate() QuerySeter
 	// return QuerySeter execution result number
 	// for example:
 	//	num, err = qs.Filter("profile__age__gt", 28).Count()
@@ -387,6 +413,7 @@ type dbQuerier interface {
 // transaction beginner
 type txer interface {
 	Begin() (*sql.Tx, error)
+	BeginTx(ctx context.Context, opts *sql.TxOptions) (*sql.Tx, error)
 }
 
 // transaction ending

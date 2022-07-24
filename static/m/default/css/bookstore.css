@@ -657,7 +657,9 @@
 
 .vertical-list3 li {
 	padding: .5rem .75rem;
-	line-height: 1.1rem
+	line-height: 1.1rem;
+	background: #ffffff;
+	margin-bottom: 6px;
 }
 
 .vertical-list3 li:nth-child(odd) {

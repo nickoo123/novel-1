@@ -666,16 +666,39 @@ body {
 }
 
 .free-book {
-    margin-bottom: -10px;
-    margin-left: -30px;
     font-size: 0;
     clear: both;
     /*overflow: hidden;*/
     zoom: 1;
     position: relative;
 }
-
-.free-book li,
+.free-book li {
+    width: 50%;
+    height: 35px;
+    display: inline-grid;
+    border-bottom: 1px dotted #dddddd;
+}
+.free-book li dd {
+    padding-top: 8px;
+    float: left;
+}
+.free-book li .link_title {
+    width: 60%;
+    overflow: hidden;
+}
+.free-book li .link_title a{
+    color: #206db8;
+    font-size: 15px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.free-book li .author,.free-book li .date{
+    color: #999999;
+    font-size: 12px;
+    width: 19%;
+    display: inline-block;
+}
 .hot-book li {
     padding-bottom: 37px;
     margin-left: 30px;

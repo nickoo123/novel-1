@@ -43,7 +43,7 @@ func (this *HomeController) Index() {
 	this.Data["NovRecs"] = recsData
 
 	// 获取最新更新
-	this.Data["NovNews"] = services.NovelService.GetNewUps(12, 0)
+	this.Data["NovNews"] = services.NovelService.GetNewUps(40, 0)
 
 	// 获取阅读排行榜
 	novRanks := services.NovelService.GetRanks(9, 0)

@@ -15,7 +15,10 @@ RUN pwd && ls
 
 FROM alpine
 
-RUN mkdir -p /go && export GOTMPDIR=/go
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+RUN mkdir -p /go && export GOTMPDIR=/go && apk add --no-cache redis
+RUN echo 'appendonly yes' /etc/redis.conf
+
 WORKDIR /go
 COPY --from=builder /code/novel /go
 COPY --from=builder /code/conf /go/conf

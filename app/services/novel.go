@@ -246,7 +246,7 @@ func (this *Novel) GetNewUps(size, offset int) []*models.Novel {
 	args.Limit = size
 	args.Offset = offset
 	args.OrderBy = "-chapter_updated_at"
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "updated_at", "chapter_updated_at"}
 
 	novs, _ := this.GetAll(args)
 
