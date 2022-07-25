@@ -18,17 +18,21 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"github.com/astaxie/beego"
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/axgle/mahonia"
+	"github.com/garyburd/redigo/redis"
 	"golang.org/x/crypto/scrypt"
 )
 
 var (
 	ErrHttpNotFound = errors.New("请求未发现")
 	ErrHttpError    = errors.New("请求错误")
+	RedisPool       *redis.Pool
 )
 
 // ParseBool returns the boolean value represented by the string.
@@ -224,4 +228,94 @@ func unicode2utf8(source string) string {
 	}
 	res = append(res, context)
 	return strings.Join(res, "")
+}
+
+func InitCache() {
+	var conn = beego.AppConfig.String("redisHost") + ":" + beego.AppConfig.String("redisPort")
+	var password = beego.AppConfig.String("redisPass")
+	var dbNum, _ = strconv.Atoi(beego.AppConfig.String("redisDB"))
+	dialFunc := func() (c redis.Conn, err error) {
+		c, err = redis.Dial("tcp", conn)
+		if err != nil {
+			return nil, err
+		}
+
+		if password != "" {
+			if _, err := c.Do("AUTH", password); err != nil {
+				c.Close()
+				return nil, err
+			}
+		}
+
+		_, selecterr := c.Do("SELECT", dbNum)
+		if selecterr != nil {
+			c.Close()
+			return nil, selecterr
+		}
+		return
+	}
+	// initialize a new pool
+	RedisPool = &redis.Pool{
+		MaxIdle:     3,
+		IdleTimeout: 180 * time.Second,
+		Dial:        dialFunc,
+	}
+	InitPermissionRedisData()
+}
+
+//初始化缓存数据
+func InitPermissionRedisData() {
+	var redisPrefix = beego.AppConfig.String("redisPrefix")
+	redisConn := RedisPool.Get()
+	defer redisConn.Close()
+
+	clearPermissionData(redisConn, redisPrefix)
+}
+
+//清除相关redis数据
+func clearPermissionData(redisConn redis.Conn, redisPrefix string) {
+	redisKeys, err := redis.Strings(redisConn.Do("KEYS", redisPrefix+"*"))
+	if err != nil {
+		return
+	}
+	redisConn.Do("MULTI")
+	for _, v := range redisKeys {
+		redisConn.Do("DEL", v)
+	}
+	redisConn.Do("EXEC")
+}
+
+//设置key value
+func SetRedisKeyValue(key, value string) {
+	var redisPrefix = beego.AppConfig.String("redisPrefix")
+	redisConn := RedisPool.Get()
+	defer redisConn.Close()
+	redisConn.Do("SET", redisPrefix+key, value)
+	redis.Int(redisConn.Do("EXPIRE", redisPrefix+key, 3*60*60))
+}
+
+//删除key值
+func DelRedisKeys(keys []string) {
+	var redisPrefix = beego.AppConfig.String("redisPrefix")
+	redisConn := RedisPool.Get()
+	defer redisConn.Close()
+
+	redisConn.Do("MULTI")
+	for _, v := range keys {
+		redisConn.Do("DEL", redisPrefix+v)
+	}
+	redisConn.Do("EXEC")
+}
+
+// 用key值获取数据
+func GetRedisKeys(key string) interface{} {
+	var redisPrefix = beego.AppConfig.String("redisPrefix")
+	redisConn := RedisPool.Get()
+	defer redisConn.Close()
+	res, err := redis.String(redisConn.Do("Get", redisPrefix+key))
+	if err != nil {
+		fmt.Println("err:", err)
+		return nil
+	}
+	return res
 }

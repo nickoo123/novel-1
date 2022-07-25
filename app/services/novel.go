@@ -15,8 +15,11 @@
 package services
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/vckai/novel/app/utils"
 	"strconv"
 	"strings"
 	"time"
@@ -248,9 +251,58 @@ func (this *Novel) GetNewUps(size, offset int) []*models.Novel {
 	args.OrderBy = "-chapter_updated_at"
 	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "updated_at", "chapter_updated_at"}
 
-	novs, _ := this.GetAll(args)
-
-	return novs
+	var buf bytes.Buffer
+	buf.WriteString("GetNewUps:")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":" + strconv.Itoa(offset))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		novs := make([]*models.Novel, 0)
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return novs
+	} else {
+		novs, _ := this.GetAll(args)
+		var novlist []models.Novel
+		for _, n := range novs {
+			var nov = models.Novel{
+				Name:             n.Name,
+				Desc:             n.Desc,
+				Cover:            n.Cover,
+				CateId:           n.CateId,
+				CateName:         n.CateName,
+				Author:           n.Author,
+				IsOriginal:       n.IsOriginal,
+				IsHot:            n.IsHot,
+				IsRec:            n.IsRec,
+				IsTodayRec:       n.IsTodayRec,
+				IsVipRec:         n.IsVipRec,
+				IsVipReward:      n.IsVipReward,
+				IsVipUp:          n.IsVipUp,
+				IsSignNewBook:    n.IsSignNewBook,
+				IsCollect:        n.IsCollect,
+				Status:           n.Status,
+				Views:            n.Views,
+				CollectNum:       n.CollectNum,
+				RecNum:           n.RecNum,
+				TextNum:          n.TextNum,
+				ChapterNum:       n.ChapterNum,
+				ChapterUpdatedAt: n.ChapterUpdatedAt,
+				ChapterId:        n.ChapterId,
+				ChapterTitle:     n.ChapterTitle,
+				CreatedAt:        n.CreatedAt,
+				UpdatedAt:        n.UpdatedAt,
+				DeletedAt:        n.DeletedAt,
+			}
+			novlist = append(novlist, nov)
+		}
+		str, _ := json.Marshal(novlist)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+		return novs
+	}
 }
 
 // 获取新增小说榜单
