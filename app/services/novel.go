@@ -19,14 +19,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/vckai/novel/app/utils"
+	gutils "novel/app/utils"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/astaxie/beego/validation"
 
-	"github.com/vckai/novel/app/models"
+	"novel/app/models"
 )
 
 // 定义NovelService
@@ -94,19 +94,63 @@ func (this *Novel) GetByName(name string) *models.Novel {
 
 // 获取单个管理员信息
 func (this *Novel) Get(id uint32) *models.Novel {
-	nov := models.NewNovel()
-
 	if id < 0 {
 		return nil
 	}
 
-	nov.Id = id
-	err := nov.Read()
-	if err != nil {
-		return nil
+	var buf bytes.Buffer
+	buf.WriteString("Novel:get:")
+	buf.WriteString("id_" + string(id))
+	res := gutils.GetRedisKeys(buf.String())
+	if res != nil {
+		var novs *models.Novel
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return novs
+	} else {
+		nov := models.NewNovel()
+		nov.Id = id
+		err := nov.Read()
+		if err != nil {
+			return nil
+		}
+		var novs = models.Novel{
+			Id:               nov.Id,
+			Name:             nov.Name,
+			Desc:             nov.Desc,
+			Cover:            nov.Cover,
+			CateId:           nov.CateId,
+			CateName:         nov.CateName,
+			Author:           nov.Author,
+			IsOriginal:       nov.IsOriginal,
+			IsHot:            nov.IsHot,
+			IsRec:            nov.IsRec,
+			IsTodayRec:       nov.IsTodayRec,
+			IsVipRec:         nov.IsVipRec,
+			IsVipReward:      nov.IsVipReward,
+			IsVipUp:          nov.IsVipUp,
+			IsSignNewBook:    nov.IsSignNewBook,
+			IsCollect:        nov.IsCollect,
+			Status:           nov.Status,
+			Views:            nov.Views,
+			CollectNum:       nov.Id,
+			RecNum:           nov.RecNum,
+			TextNum:          nov.TextNum,
+			ChapterNum:       nov.ChapterNum,
+			ChapterUpdatedAt: nov.ChapterUpdatedAt,
+			ChapterId:        nov.ChapterId,
+			ChapterTitle:     nov.ChapterTitle,
+			CreatedAt:        nov.CreatedAt,
+			UpdatedAt:        nov.UpdatedAt,
+			DeletedAt:        nov.DeletedAt,
+		}
+		str, _ := json.Marshal(novs)
+		gutils.SetRedisKeyValue(buf.String(), string(str))
+		return nov
 	}
-
-	return nov
 }
 
 // 获取今日推荐
@@ -123,7 +167,7 @@ func (this *Novel) GetTodayRecs(size, offset int) []*models.Novel {
 	buf.WriteString("GetTodayRecs:")
 	buf.WriteString("size_" + strconv.Itoa(size))
 	buf.WriteString(":offset_" + strconv.Itoa(offset))
-	res := utils.GetRedisKeys(buf.String())
+	res := gutils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
 		str := fmt.Sprintf("%s", res)
@@ -169,7 +213,7 @@ func (this *Novel) GetTodayRecs(size, offset int) []*models.Novel {
 			novlist = append(novlist, nov)
 		}
 		str, _ := json.Marshal(novlist)
-		utils.SetRedisKeyValue(buf.String(), string(str))
+		gutils.SetRedisKeyValue(buf.String(), string(str))
 		return novs
 	}
 }
@@ -187,7 +231,7 @@ func (this *Novel) GetRecs(size, offset int) []*models.Novel {
 	buf.WriteString("GetRecs:")
 	buf.WriteString("size_" + strconv.Itoa(size))
 	buf.WriteString(":offset_" + strconv.Itoa(offset))
-	res := utils.GetRedisKeys(buf.String())
+	res := gutils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
 		str := fmt.Sprintf("%s", res)
@@ -233,7 +277,7 @@ func (this *Novel) GetRecs(size, offset int) []*models.Novel {
 			novlist = append(novlist, nov)
 		}
 		str, _ := json.Marshal(novlist)
-		utils.SetRedisKeyValue(buf.String(), string(str))
+		gutils.SetRedisKeyValue(buf.String(), string(str))
 		return novs
 	}
 }
@@ -252,7 +296,7 @@ func (this *Novel) GetVipRecs(size, offset int) []*models.Novel {
 	buf.WriteString("GetVipRecs:")
 	buf.WriteString("size_" + strconv.Itoa(size))
 	buf.WriteString(":offset_" + strconv.Itoa(offset))
-	res := utils.GetRedisKeys(buf.String())
+	res := gutils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
 		str := fmt.Sprintf("%s", res)
@@ -298,7 +342,7 @@ func (this *Novel) GetVipRecs(size, offset int) []*models.Novel {
 			novlist = append(novlist, nov)
 		}
 		str, _ := json.Marshal(novlist)
-		utils.SetRedisKeyValue(buf.String(), string(str))
+		gutils.SetRedisKeyValue(buf.String(), string(str))
 		return novs
 	}
 }
@@ -332,7 +376,7 @@ func (this *Novel) GetHots(size, offset int) []*models.Novel {
 	buf.WriteString("GetHots:")
 	buf.WriteString("size_" + strconv.Itoa(size))
 	buf.WriteString(":offset_" + strconv.Itoa(offset))
-	res := utils.GetRedisKeys(buf.String())
+	res := gutils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
 		str := fmt.Sprintf("%s", res)
@@ -378,7 +422,7 @@ func (this *Novel) GetHots(size, offset int) []*models.Novel {
 			novlist = append(novlist, nov)
 		}
 		str, _ := json.Marshal(novlist)
-		utils.SetRedisKeyValue(buf.String(), string(str))
+		gutils.SetRedisKeyValue(buf.String(), string(str))
 		return novs
 	}
 }
@@ -397,7 +441,7 @@ func (this *Novel) GetSignNewBooks(size, offset int) []*models.Novel {
 	buf.WriteString("GetSignNewBooks:")
 	buf.WriteString("size_" + strconv.Itoa(size))
 	buf.WriteString(":offset_" + strconv.Itoa(offset))
-	res := utils.GetRedisKeys(buf.String())
+	res := gutils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
 		str := fmt.Sprintf("%s", res)
@@ -443,7 +487,7 @@ func (this *Novel) GetSignNewBooks(size, offset int) []*models.Novel {
 			novlist = append(novlist, nov)
 		}
 		str, _ := json.Marshal(novlist)
-		utils.SetRedisKeyValue(buf.String(), string(str))
+		gutils.SetRedisKeyValue(buf.String(), string(str))
 		return novs
 	}
 }
@@ -462,7 +506,7 @@ func (this *Novel) GetCollects(size, offset int) []*models.Novel {
 	buf.WriteString("GetCollects:")
 	buf.WriteString("size_" + strconv.Itoa(size))
 	buf.WriteString(":offset_" + strconv.Itoa(offset))
-	res := utils.GetRedisKeys(buf.String())
+	res := gutils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
 		str := fmt.Sprintf("%s", res)
@@ -508,7 +552,7 @@ func (this *Novel) GetCollects(size, offset int) []*models.Novel {
 			novlist = append(novlist, nov)
 		}
 		str, _ := json.Marshal(novlist)
-		utils.SetRedisKeyValue(buf.String(), string(str))
+		gutils.SetRedisKeyValue(buf.String(), string(str))
 		return novs
 	}
 }
@@ -525,7 +569,7 @@ func (this *Novel) GetRanks(size, offset int) []*models.Novel {
 	buf.WriteString("GetRanks:")
 	buf.WriteString("size_" + strconv.Itoa(size))
 	buf.WriteString(":offset_" + strconv.Itoa(offset))
-	res := utils.GetRedisKeys(buf.String())
+	res := gutils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
 		str := fmt.Sprintf("%s", res)
@@ -571,7 +615,7 @@ func (this *Novel) GetRanks(size, offset int) []*models.Novel {
 			novlist = append(novlist, nov)
 		}
 		str, _ := json.Marshal(novlist)
-		utils.SetRedisKeyValue(buf.String(), string(str))
+		gutils.SetRedisKeyValue(buf.String(), string(str))
 		return novs
 	}
 }
@@ -604,7 +648,7 @@ func (this *Novel) GetNewUps(size, offset int) []*models.Novel {
 	buf.WriteString("GetNewUps:")
 	buf.WriteString("size_" + strconv.Itoa(size))
 	buf.WriteString(":offset_" + strconv.Itoa(offset))
-	res := utils.GetRedisKeys(buf.String())
+	res := gutils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
 		str := fmt.Sprintf("%s", res)
@@ -650,7 +694,7 @@ func (this *Novel) GetNewUps(size, offset int) []*models.Novel {
 			novlist = append(novlist, nov)
 		}
 		str, _ := json.Marshal(novlist)
-		utils.SetRedisKeyValue(buf.String(), string(str))
+		gutils.SetRedisKeyValue(buf.String(), string(str))
 		return novs
 	}
 }

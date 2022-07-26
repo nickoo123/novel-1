@@ -1,4 +1,4 @@
-module github.com/vckai/novel
+module novel
 
 go 1.12
 
@@ -27,8 +27,7 @@ require (
 	github.com/smartystreets/goconvey v0.0.0-20170110120022-3bd662eac601
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
-	github.com/tidwall/gjson v1.0.3
-	github.com/tidwall/match v1.0.0 // indirect
+	github.com/tidwall/gjson v1.9.3
 	github.com/willf/bitset v1.1.10 // indirect
 	github.com/willf/bloom v2.0.3+incompatible
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550

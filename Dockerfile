@@ -8,7 +8,7 @@ RUN apk --no-cache add build-base tzdata git
 COPY . /code
 WORKDIR /code
 RUN export GOPROXY=https://goproxy.cn && \
-    go get github.com/vckai/novel && go mod vendor && \
+    go mod tidy && go mod vendor && \
     CGO_ENABLED=1 go build -a
 
 RUN pwd && ls

@@ -17,8 +17,8 @@ package m
 import (
 	"github.com/astaxie/beego"
 
-	"github.com/vckai/novel/app/models"
-	"github.com/vckai/novel/app/services"
+	"novel/app/models"
+	"novel/app/services"
 )
 
 const (

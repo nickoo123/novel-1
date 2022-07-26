@@ -17,8 +17,8 @@ package home
 import (
 	"math"
 
-	"github.com/vckai/novel/app/models"
-	"github.com/vckai/novel/app/services"
+	"novel/app/models"
+	"novel/app/services"
 )
 
 type HomeController struct {
