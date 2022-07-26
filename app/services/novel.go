@@ -121,8 +121,8 @@ func (this *Novel) GetTodayRecs(size, offset int) []*models.Novel {
 
 	var buf bytes.Buffer
 	buf.WriteString("GetTodayRecs:")
-	buf.WriteString(strconv.Itoa(size))
-	buf.WriteString(":" + strconv.Itoa(offset))
+	buf.WriteString("size_" + strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
 	res := utils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
@@ -137,6 +137,7 @@ func (this *Novel) GetTodayRecs(size, offset int) []*models.Novel {
 		var novlist []models.Novel
 		for _, n := range novs {
 			var nov = models.Novel{
+				Id:               n.Id,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -184,8 +185,8 @@ func (this *Novel) GetRecs(size, offset int) []*models.Novel {
 	}
 	var buf bytes.Buffer
 	buf.WriteString("GetRecs:")
-	buf.WriteString(strconv.Itoa(size))
-	buf.WriteString(":" + strconv.Itoa(offset))
+	buf.WriteString("size_" + strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
 	res := utils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
@@ -200,6 +201,7 @@ func (this *Novel) GetRecs(size, offset int) []*models.Novel {
 		var novlist []models.Novel
 		for _, n := range novs {
 			var nov = models.Novel{
+				Id:               n.Id,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -248,8 +250,8 @@ func (this *Novel) GetVipRecs(size, offset int) []*models.Novel {
 
 	var buf bytes.Buffer
 	buf.WriteString("GetVipRecs:")
-	buf.WriteString(strconv.Itoa(size))
-	buf.WriteString(":" + strconv.Itoa(offset))
+	buf.WriteString("size_" + strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
 	res := utils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
@@ -264,6 +266,7 @@ func (this *Novel) GetVipRecs(size, offset int) []*models.Novel {
 		var novlist []models.Novel
 		for _, n := range novs {
 			var nov = models.Novel{
+				Id:               n.Id,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -327,8 +330,8 @@ func (this *Novel) GetHots(size, offset int) []*models.Novel {
 
 	var buf bytes.Buffer
 	buf.WriteString("GetHots:")
-	buf.WriteString(strconv.Itoa(size))
-	buf.WriteString(":" + strconv.Itoa(offset))
+	buf.WriteString("size_" + strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
 	res := utils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
@@ -343,6 +346,7 @@ func (this *Novel) GetHots(size, offset int) []*models.Novel {
 		var novlist []models.Novel
 		for _, n := range novs {
 			var nov = models.Novel{
+				Id:               n.Id,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -391,8 +395,8 @@ func (this *Novel) GetSignNewBooks(size, offset int) []*models.Novel {
 
 	var buf bytes.Buffer
 	buf.WriteString("GetSignNewBooks:")
-	buf.WriteString(strconv.Itoa(size))
-	buf.WriteString(":" + strconv.Itoa(offset))
+	buf.WriteString("size_" + strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
 	res := utils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
@@ -407,6 +411,7 @@ func (this *Novel) GetSignNewBooks(size, offset int) []*models.Novel {
 		var novlist []models.Novel
 		for _, n := range novs {
 			var nov = models.Novel{
+				Id:               n.Id,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -455,8 +460,8 @@ func (this *Novel) GetCollects(size, offset int) []*models.Novel {
 
 	var buf bytes.Buffer
 	buf.WriteString("GetCollects:")
-	buf.WriteString(strconv.Itoa(size))
-	buf.WriteString(":" + strconv.Itoa(offset))
+	buf.WriteString("size_" + strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
 	res := utils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
@@ -471,6 +476,7 @@ func (this *Novel) GetCollects(size, offset int) []*models.Novel {
 		var novlist []models.Novel
 		for _, n := range novs {
 			var nov = models.Novel{
+				Id:               n.Id,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -517,8 +523,8 @@ func (this *Novel) GetRanks(size, offset int) []*models.Novel {
 
 	var buf bytes.Buffer
 	buf.WriteString("GetRanks:")
-	buf.WriteString(strconv.Itoa(size))
-	buf.WriteString(":" + strconv.Itoa(offset))
+	buf.WriteString("size_" + strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
 	res := utils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
@@ -533,6 +539,7 @@ func (this *Novel) GetRanks(size, offset int) []*models.Novel {
 		var novlist []models.Novel
 		for _, n := range novs {
 			var nov = models.Novel{
+				Id:               n.Id,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -595,8 +602,8 @@ func (this *Novel) GetNewUps(size, offset int) []*models.Novel {
 
 	var buf bytes.Buffer
 	buf.WriteString("GetNewUps:")
-	buf.WriteString(strconv.Itoa(size))
-	buf.WriteString(":" + strconv.Itoa(offset))
+	buf.WriteString("size_" + strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
 	res := utils.GetRedisKeys(buf.String())
 	if res != nil {
 		novs := make([]*models.Novel, 0)
@@ -611,6 +618,7 @@ func (this *Novel) GetNewUps(size, offset int) []*models.Novel {
 		var novlist []models.Novel
 		for _, n := range novs {
 			var nov = models.Novel{
+				Id:               n.Id,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,

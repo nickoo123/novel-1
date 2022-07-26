@@ -15,8 +15,13 @@
 package services
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
+	"fmt"
+	"github.com/vckai/novel/app/utils"
 	"math"
+	"strconv"
 	"time"
 	"unicode/utf8"
 
@@ -144,7 +149,46 @@ func (this *Chapter) GetNovChaps(novId uint32, size, offset int, sort string, is
 	m.NovId = novId
 
 	// 获取小说章节列表
-	chaps := m.GetNovChaps(size, offset, sort)
+	chaps := make([]*models.Chapter, 0)
+	var buf bytes.Buffer
+	buf.WriteString("GetNovChaps:novId_")
+	buf.WriteString(fmt.Sprintf("%d", novId))
+	buf.WriteString(":size_")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
+	buf.WriteString(":sort_" + sort)
+	buf.WriteString(":isCount_" + strconv.FormatBool(isCount))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &chaps); err != nil {
+			fmt.Println("err:-----", err.Error())
+		}
+	} else {
+		chaps = m.GetNovChaps(size, offset, sort)
+		var chaplist []models.Chapter
+		for _, c := range chaps {
+			var nov = models.Chapter{
+				Id:        c.Id,
+				NovId:     c.NovId,
+				ChapterNo: c.ChapterNo,
+				Title:     c.Title,
+				Desc:      c.Desc,
+				Link:      c.Link,
+				Source:    c.Source,
+				Views:     c.Views,
+				TextNum:   c.TextNum,
+				Status:    c.Status,
+				TryViews:  c.TryViews,
+				CreatedAt: c.CreatedAt,
+				UpdatedAt: c.UpdatedAt,
+				DeletedAt: c.DeletedAt,
+			}
+			chaplist = append(chaplist, nov)
+		}
+		str, _ := json.Marshal(chaplist)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+	}
 
 	// 获取小说章节数
 	var count int64 = 0
