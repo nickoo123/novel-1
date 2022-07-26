@@ -119,9 +119,58 @@ func (this *Novel) GetTodayRecs(size, offset int) []*models.Novel {
 		"is_today_rec": 1,
 	}
 
-	novs, _ := this.GetAll(args)
-
-	return novs
+	var buf bytes.Buffer
+	buf.WriteString("GetTodayRecs:")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":" + strconv.Itoa(offset))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		novs := make([]*models.Novel, 0)
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return novs
+	} else {
+		novs, _ := this.GetAll(args)
+		var novlist []models.Novel
+		for _, n := range novs {
+			var nov = models.Novel{
+				Name:             n.Name,
+				Desc:             n.Desc,
+				Cover:            n.Cover,
+				CateId:           n.CateId,
+				CateName:         n.CateName,
+				Author:           n.Author,
+				IsOriginal:       n.IsOriginal,
+				IsHot:            n.IsHot,
+				IsRec:            n.IsRec,
+				IsTodayRec:       n.IsTodayRec,
+				IsVipRec:         n.IsVipRec,
+				IsVipReward:      n.IsVipReward,
+				IsVipUp:          n.IsVipUp,
+				IsSignNewBook:    n.IsSignNewBook,
+				IsCollect:        n.IsCollect,
+				Status:           n.Status,
+				Views:            n.Views,
+				CollectNum:       n.CollectNum,
+				RecNum:           n.RecNum,
+				TextNum:          n.TextNum,
+				ChapterNum:       n.ChapterNum,
+				ChapterUpdatedAt: n.ChapterUpdatedAt,
+				ChapterId:        n.ChapterId,
+				ChapterTitle:     n.ChapterTitle,
+				CreatedAt:        n.CreatedAt,
+				UpdatedAt:        n.UpdatedAt,
+				DeletedAt:        n.DeletedAt,
+			}
+			novlist = append(novlist, nov)
+		}
+		str, _ := json.Marshal(novlist)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+		return novs
+	}
 }
 
 // 获取推荐小说
@@ -133,10 +182,58 @@ func (this *Novel) GetRecs(size, offset int) []*models.Novel {
 	args.FilterMaps = map[string]int{
 		"is_rec": 1,
 	}
-
-	novs, _ := this.GetAll(args)
-
-	return novs
+	var buf bytes.Buffer
+	buf.WriteString("GetRecs:")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":" + strconv.Itoa(offset))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		novs := make([]*models.Novel, 0)
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return novs
+	} else {
+		novs, _ := this.GetAll(args)
+		var novlist []models.Novel
+		for _, n := range novs {
+			var nov = models.Novel{
+				Name:             n.Name,
+				Desc:             n.Desc,
+				Cover:            n.Cover,
+				CateId:           n.CateId,
+				CateName:         n.CateName,
+				Author:           n.Author,
+				IsOriginal:       n.IsOriginal,
+				IsHot:            n.IsHot,
+				IsRec:            n.IsRec,
+				IsTodayRec:       n.IsTodayRec,
+				IsVipRec:         n.IsVipRec,
+				IsVipReward:      n.IsVipReward,
+				IsVipUp:          n.IsVipUp,
+				IsSignNewBook:    n.IsSignNewBook,
+				IsCollect:        n.IsCollect,
+				Status:           n.Status,
+				Views:            n.Views,
+				CollectNum:       n.CollectNum,
+				RecNum:           n.RecNum,
+				TextNum:          n.TextNum,
+				ChapterNum:       n.ChapterNum,
+				ChapterUpdatedAt: n.ChapterUpdatedAt,
+				ChapterId:        n.ChapterId,
+				ChapterTitle:     n.ChapterTitle,
+				CreatedAt:        n.CreatedAt,
+				UpdatedAt:        n.UpdatedAt,
+				DeletedAt:        n.DeletedAt,
+			}
+			novlist = append(novlist, nov)
+		}
+		str, _ := json.Marshal(novlist)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+		return novs
+	}
 }
 
 // 获取精品推荐小说
@@ -149,9 +246,58 @@ func (this *Novel) GetVipRecs(size, offset int) []*models.Novel {
 		"is_vip_rec": 1,
 	}
 
-	novs, _ := this.GetAll(args)
-
-	return novs
+	var buf bytes.Buffer
+	buf.WriteString("GetVipRecs:")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":" + strconv.Itoa(offset))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		novs := make([]*models.Novel, 0)
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return novs
+	} else {
+		novs, _ := this.GetAll(args)
+		var novlist []models.Novel
+		for _, n := range novs {
+			var nov = models.Novel{
+				Name:             n.Name,
+				Desc:             n.Desc,
+				Cover:            n.Cover,
+				CateId:           n.CateId,
+				CateName:         n.CateName,
+				Author:           n.Author,
+				IsOriginal:       n.IsOriginal,
+				IsHot:            n.IsHot,
+				IsRec:            n.IsRec,
+				IsTodayRec:       n.IsTodayRec,
+				IsVipRec:         n.IsVipRec,
+				IsVipReward:      n.IsVipReward,
+				IsVipUp:          n.IsVipUp,
+				IsSignNewBook:    n.IsSignNewBook,
+				IsCollect:        n.IsCollect,
+				Status:           n.Status,
+				Views:            n.Views,
+				CollectNum:       n.CollectNum,
+				RecNum:           n.RecNum,
+				TextNum:          n.TextNum,
+				ChapterNum:       n.ChapterNum,
+				ChapterUpdatedAt: n.ChapterUpdatedAt,
+				ChapterId:        n.ChapterId,
+				ChapterTitle:     n.ChapterTitle,
+				CreatedAt:        n.CreatedAt,
+				UpdatedAt:        n.UpdatedAt,
+				DeletedAt:        n.DeletedAt,
+			}
+			novlist = append(novlist, nov)
+		}
+		str, _ := json.Marshal(novlist)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+		return novs
+	}
 }
 
 // 获取原创小说
@@ -179,9 +325,58 @@ func (this *Novel) GetHots(size, offset int) []*models.Novel {
 		"is_hot": 1,
 	}
 
-	novs, _ := this.GetAll(args)
-
-	return novs
+	var buf bytes.Buffer
+	buf.WriteString("GetHots:")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":" + strconv.Itoa(offset))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		novs := make([]*models.Novel, 0)
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return novs
+	} else {
+		novs, _ := this.GetAll(args)
+		var novlist []models.Novel
+		for _, n := range novs {
+			var nov = models.Novel{
+				Name:             n.Name,
+				Desc:             n.Desc,
+				Cover:            n.Cover,
+				CateId:           n.CateId,
+				CateName:         n.CateName,
+				Author:           n.Author,
+				IsOriginal:       n.IsOriginal,
+				IsHot:            n.IsHot,
+				IsRec:            n.IsRec,
+				IsTodayRec:       n.IsTodayRec,
+				IsVipRec:         n.IsVipRec,
+				IsVipReward:      n.IsVipReward,
+				IsVipUp:          n.IsVipUp,
+				IsSignNewBook:    n.IsSignNewBook,
+				IsCollect:        n.IsCollect,
+				Status:           n.Status,
+				Views:            n.Views,
+				CollectNum:       n.CollectNum,
+				RecNum:           n.RecNum,
+				TextNum:          n.TextNum,
+				ChapterNum:       n.ChapterNum,
+				ChapterUpdatedAt: n.ChapterUpdatedAt,
+				ChapterId:        n.ChapterId,
+				ChapterTitle:     n.ChapterTitle,
+				CreatedAt:        n.CreatedAt,
+				UpdatedAt:        n.UpdatedAt,
+				DeletedAt:        n.DeletedAt,
+			}
+			novlist = append(novlist, nov)
+		}
+		str, _ := json.Marshal(novlist)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+		return novs
+	}
 }
 
 // 获取新人签约榜列表
@@ -194,9 +389,58 @@ func (this *Novel) GetSignNewBooks(size, offset int) []*models.Novel {
 		"is_sign_new_book": 1,
 	}
 
-	novs, _ := this.GetAll(args)
-
-	return novs
+	var buf bytes.Buffer
+	buf.WriteString("GetSignNewBooks:")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":" + strconv.Itoa(offset))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		novs := make([]*models.Novel, 0)
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return novs
+	} else {
+		novs, _ := this.GetAll(args)
+		var novlist []models.Novel
+		for _, n := range novs {
+			var nov = models.Novel{
+				Name:             n.Name,
+				Desc:             n.Desc,
+				Cover:            n.Cover,
+				CateId:           n.CateId,
+				CateName:         n.CateName,
+				Author:           n.Author,
+				IsOriginal:       n.IsOriginal,
+				IsHot:            n.IsHot,
+				IsRec:            n.IsRec,
+				IsTodayRec:       n.IsTodayRec,
+				IsVipRec:         n.IsVipRec,
+				IsVipReward:      n.IsVipReward,
+				IsVipUp:          n.IsVipUp,
+				IsSignNewBook:    n.IsSignNewBook,
+				IsCollect:        n.IsCollect,
+				Status:           n.Status,
+				Views:            n.Views,
+				CollectNum:       n.CollectNum,
+				RecNum:           n.RecNum,
+				TextNum:          n.TextNum,
+				ChapterNum:       n.ChapterNum,
+				ChapterUpdatedAt: n.ChapterUpdatedAt,
+				ChapterId:        n.ChapterId,
+				ChapterTitle:     n.ChapterTitle,
+				CreatedAt:        n.CreatedAt,
+				UpdatedAt:        n.UpdatedAt,
+				DeletedAt:        n.DeletedAt,
+			}
+			novlist = append(novlist, nov)
+		}
+		str, _ := json.Marshal(novlist)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+		return novs
+	}
 }
 
 // 获取收藏榜列表
@@ -209,9 +453,58 @@ func (this *Novel) GetCollects(size, offset int) []*models.Novel {
 		"is_collect": 1,
 	}
 
-	novs, _ := this.GetAll(args)
-
-	return novs
+	var buf bytes.Buffer
+	buf.WriteString("GetCollects:")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":" + strconv.Itoa(offset))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		novs := make([]*models.Novel, 0)
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return novs
+	} else {
+		novs, _ := this.GetAll(args)
+		var novlist []models.Novel
+		for _, n := range novs {
+			var nov = models.Novel{
+				Name:             n.Name,
+				Desc:             n.Desc,
+				Cover:            n.Cover,
+				CateId:           n.CateId,
+				CateName:         n.CateName,
+				Author:           n.Author,
+				IsOriginal:       n.IsOriginal,
+				IsHot:            n.IsHot,
+				IsRec:            n.IsRec,
+				IsTodayRec:       n.IsTodayRec,
+				IsVipRec:         n.IsVipRec,
+				IsVipReward:      n.IsVipReward,
+				IsVipUp:          n.IsVipUp,
+				IsSignNewBook:    n.IsSignNewBook,
+				IsCollect:        n.IsCollect,
+				Status:           n.Status,
+				Views:            n.Views,
+				CollectNum:       n.CollectNum,
+				RecNum:           n.RecNum,
+				TextNum:          n.TextNum,
+				ChapterNum:       n.ChapterNum,
+				ChapterUpdatedAt: n.ChapterUpdatedAt,
+				ChapterId:        n.ChapterId,
+				ChapterTitle:     n.ChapterTitle,
+				CreatedAt:        n.CreatedAt,
+				UpdatedAt:        n.UpdatedAt,
+				DeletedAt:        n.DeletedAt,
+			}
+			novlist = append(novlist, nov)
+		}
+		str, _ := json.Marshal(novlist)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+		return novs
+	}
 }
 
 // 获取排行榜小说列表
@@ -222,9 +515,58 @@ func (this *Novel) GetRanks(size, offset int) []*models.Novel {
 	args.OrderBy = "-views"
 	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
 
-	novs, _ := this.GetAll(args)
-
-	return novs
+	var buf bytes.Buffer
+	buf.WriteString("GetRanks:")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":" + strconv.Itoa(offset))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		novs := make([]*models.Novel, 0)
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return novs
+	} else {
+		novs, _ := this.GetAll(args)
+		var novlist []models.Novel
+		for _, n := range novs {
+			var nov = models.Novel{
+				Name:             n.Name,
+				Desc:             n.Desc,
+				Cover:            n.Cover,
+				CateId:           n.CateId,
+				CateName:         n.CateName,
+				Author:           n.Author,
+				IsOriginal:       n.IsOriginal,
+				IsHot:            n.IsHot,
+				IsRec:            n.IsRec,
+				IsTodayRec:       n.IsTodayRec,
+				IsVipRec:         n.IsVipRec,
+				IsVipReward:      n.IsVipReward,
+				IsVipUp:          n.IsVipUp,
+				IsSignNewBook:    n.IsSignNewBook,
+				IsCollect:        n.IsCollect,
+				Status:           n.Status,
+				Views:            n.Views,
+				CollectNum:       n.CollectNum,
+				RecNum:           n.RecNum,
+				TextNum:          n.TextNum,
+				ChapterNum:       n.ChapterNum,
+				ChapterUpdatedAt: n.ChapterUpdatedAt,
+				ChapterId:        n.ChapterId,
+				ChapterTitle:     n.ChapterTitle,
+				CreatedAt:        n.CreatedAt,
+				UpdatedAt:        n.UpdatedAt,
+				DeletedAt:        n.DeletedAt,
+			}
+			novlist = append(novlist, nov)
+		}
+		str, _ := json.Marshal(novlist)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+		return novs
+	}
 }
 
 // 获取同类推荐排行榜
