@@ -15,6 +15,7 @@
 package home
 
 import (
+	"fmt"
 	"math"
 
 	"novel/app/models"
@@ -23,6 +24,11 @@ import (
 
 type HomeController struct {
 	BaseController
+}
+
+// robot
+func (this *HomeController) Robot() {
+	fmt.Println("User-agent:*")
 }
 
 // 首页

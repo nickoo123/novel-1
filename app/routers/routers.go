@@ -29,6 +29,7 @@ func init() {
 
 	// 首页路由
 	beego.Router("/", &home.HomeController{}, "GET:Index")
+	beego.Router("/sitemap.xml", &home.SitemapController{}, "GET:Index")
 	beego.AutoRouter(&home.HomeController{})
 	beego.AutoRouter(&home.BookController{})
 
@@ -57,9 +58,7 @@ func mRouters() {
 		}),
 
 		beego.NSRouter("/", &m.HomeController{}, "GET:Index"),
-
-		// robot
-		beego.NSRouter("/robot.txt", &m.HomeController{}, "GET:Robot"),
+		beego.NSRouter("/sitemap.xml", &home.SitemapController{}, "GET:Index"),
 
 		// 首页路由
 		beego.NSAutoRouter(&m.HomeController{}),

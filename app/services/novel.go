@@ -704,11 +704,60 @@ func (this *Novel) GetNews(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "created_at"}
 
-	novs, _ := this.GetAll(args)
-
-	return novs
+	var buf bytes.Buffer
+	buf.WriteString("GetNews:size_")
+	buf.WriteString(strconv.Itoa(size))
+	buf.WriteString(":offset_" + strconv.Itoa(offset))
+	res := gutils.GetRedisKeys(buf.String())
+	if res != nil {
+		novs := make([]*models.Novel, 0)
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &novs); err != nil {
+			fmt.Println("err:-----", err.Error())
+		}
+		return novs
+	} else {
+		var novlist []models.Novel
+		novs, _ := this.GetAll(args)
+		for _, n := range novs {
+			var nov = models.Novel{
+				Id:               n.Id,
+				Name:             n.Name,
+				Desc:             n.Desc,
+				Cover:            n.Cover,
+				CateId:           n.CateId,
+				CateName:         n.CateName,
+				Author:           n.Author,
+				IsOriginal:       n.IsOriginal,
+				IsHot:            n.IsHot,
+				IsRec:            n.IsRec,
+				IsTodayRec:       n.IsTodayRec,
+				IsVipRec:         n.IsVipRec,
+				IsVipReward:      n.IsVipReward,
+				IsVipUp:          n.IsVipUp,
+				IsSignNewBook:    n.IsSignNewBook,
+				IsCollect:        n.IsCollect,
+				Status:           n.Status,
+				Views:            n.Views,
+				CollectNum:       n.CollectNum,
+				RecNum:           n.RecNum,
+				TextNum:          n.TextNum,
+				ChapterNum:       n.ChapterNum,
+				ChapterUpdatedAt: n.ChapterUpdatedAt,
+				ChapterId:        n.ChapterId,
+				ChapterTitle:     n.ChapterTitle,
+				CreatedAt:        n.CreatedAt,
+				UpdatedAt:        n.UpdatedAt,
+				DeletedAt:        n.DeletedAt,
+			}
+			novlist = append(novlist, nov)
+		}
+		str, _ := json.Marshal(novlist)
+		gutils.SetRedisKeyValue(buf.String(), string(str))
+		return novs
+	}
 }
 
 // 获取VIP打赏
