@@ -33,12 +33,7 @@ func (this *SitemapController) Index() {
 		url.SetPriority(1)
 		st.AppendUrl(url)
 	}
-	bt, err := st.ToXml()
-	if err != nil {
-		fmt.Printf("%v", err)
-		return
-	}
-	this.Data["xml"] = fmt.Sprintf("%s", bt)
+	this.Data["xml"] = st
 	this.ServeXML()
 	this.TplName = "xml.tpl"
 }
