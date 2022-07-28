@@ -1,1 +1,2 @@
-User-agent:*
+User-agent: *
+Sitemap: https://www.biqugesk.cc/sitemap.xml
