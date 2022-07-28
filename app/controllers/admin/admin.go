@@ -15,10 +15,16 @@
 package admin
 
 import (
+	"bytes"
+	"fmt"
+	"io/ioutil"
 	"novel/app/controllers"
 	"novel/app/models"
 	"novel/app/services"
 	"novel/app/utils/log"
+	"novel/app/utils/sitemap"
+	"strconv"
+	"time"
 )
 
 type AdminController struct {
@@ -170,4 +176,33 @@ func (this *AdminController) save() {
 	this.AddLog(2003, mtitle, admin.Name, admin.Id)
 
 	this.OutJson(0, mtitle+"成功")
+}
+
+// 保存sitemap
+func (this *AdminController) Sitemap() {
+	page := 1
+	st := sitemap.NewSiteMap()
+	st.SetPretty(true)
+
+	novs := services.NovelService.GetNews(5000, page)
+	for _, nov := range novs {
+		var buf bytes.Buffer
+		buf.WriteString("https://www.biqugesk.cc/book/index?id=")
+		buf.WriteString(fmt.Sprintf("%v", nov.Id))
+		url := sitemap.NewUrl()
+		url.SetLoc(buf.String())
+		ins, _ := strconv.ParseInt(fmt.Sprintf("%v", nov.CreatedAt), 10, 64)
+		te := time.Unix(ins, 0)
+		url.SetLastmod(te)
+		url.SetChangefreq("daily")
+		url.SetPriority(1)
+		st.AppendUrl(url)
+	}
+	xml, _ := st.ToXml()
+	err := ioutil.WriteFile("static/sitemap.xml", xml, 0644)
+	if err != nil {
+		fmt.Println("Error writing XML to file:", err)
+		return
+	}
+	this.OutJson(0, "sitemap.xml创建成功")
 }
