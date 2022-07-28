@@ -12,6 +12,11 @@
                   <i class="layui-icon layui-icon-refresh-3"></i>
                 </a>
               </li>
+              <li class="layui-nav-item" lay-unselect="">
+                  <a href="javascript:;" onclick="x_admin_show('生成sitemap', '{{urlfor "admin.AdminController.Sitemap"}}', 550, 500);" title="生成sitemap">
+                    <i class="layui-icon layui-icon-share"></i>
+                  </a>
+              </li>
               <li class="layui-nav-item layui-hide-xs" lay-unselect="">
                 <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search.html?keywords="> 
               </li>
