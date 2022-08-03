@@ -7,8 +7,8 @@ RUN apk --no-cache add build-base tzdata git
 
 COPY . /code
 WORKDIR /code
-RUN export GOPROXY=https://goproxy.cn && \
-    go mod tidy && go mod vendor && \
+RUN export GOPROXY=https://goproxy.cn
+RUN go mod tidy && go mod vendor && \
     CGO_ENABLED=1 go build -a
 
 RUN pwd && ls
@@ -23,6 +23,7 @@ COPY --from=builder /code/novel /go
 COPY --from=builder /code/conf /go/conf
 COPY --from=builder /code/lang /go/lang
 COPY --from=builder /code/static /go/static
+RUN mkdir -p /go/static/sitemap
 COPY --from=builder /code/views /go/views
 COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 

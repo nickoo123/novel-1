@@ -129,8 +129,8 @@ func (this *Crawler) run() {
 				}
 				this.snatchBook(link)
 
-				// 休眠1ms，防止采集速度过快被屏蔽
-				time.Sleep(time.Duration(1) * time.Millisecond)
+				// 休眠10ms，防止采集速度过快被屏蔽
+				time.Sleep(time.Duration(10) * time.Millisecond)
 			}
 		}()
 	}

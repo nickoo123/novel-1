@@ -180,15 +180,15 @@ func (this *AdminController) save() {
 
 // 保存sitemap
 func (this *AdminController) Sitemap() {
-	page := 1
+	page, _ := this.GetUint32("page")
 	st := sitemap.NewSiteMap()
 	st.SetPretty(true)
 
-	novs := services.NovelService.GetNews(5000, page)
+	novs := services.NovelService.GetNews(5000, int(page))
 	for _, nov := range novs {
 		var buf bytes.Buffer
-		buf.WriteString("https://www.biqugesk.cc/book/index?id=")
-		buf.WriteString(fmt.Sprintf("%v", nov.Id))
+		buf.WriteString("https://www.biqugesk.cc/book/")
+		buf.WriteString(fmt.Sprintf("%v.html", nov.Id))
 		url := sitemap.NewUrl()
 		url.SetLoc(buf.String())
 		ins, _ := strconv.ParseInt(fmt.Sprintf("%v", nov.CreatedAt), 10, 64)
@@ -199,7 +199,7 @@ func (this *AdminController) Sitemap() {
 		st.AppendUrl(url)
 	}
 	xml, _ := st.ToXml()
-	err := ioutil.WriteFile("static/sitemap.xml", xml, 0644)
+	err := ioutil.WriteFile(fmt.Sprintf("static/sitemap/%d.xml", page), xml, 0644)
 	if err != nil {
 		fmt.Println("Error writing XML to file:", err)
 		return
