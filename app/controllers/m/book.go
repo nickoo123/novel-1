@@ -136,6 +136,10 @@ func (this *BookController) Detail() {
 		this.Msg("该小说不存在或者已被删除")
 	}
 
+	if chap.Desc == "" {
+		chap.Desc = "快速手打中……"
+	}
+
 	this.Data["Nov"] = nov
 	this.Data["Chap"] = chap
 	this.Data["Next"] = services.ChapterService.GetNext(chap.NovId, chap.ChapterNo)
