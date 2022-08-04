@@ -563,7 +563,7 @@ func (this *Novel) GetRanks(size, offset int) []*models.Novel {
 	args.Limit = size
 	args.Offset = offset
 	args.OrderBy = "-views"
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "chapter_id", "chapter_title", "updated_at", "chapter_updated_at"}
 
 	var buf bytes.Buffer
 	buf.WriteString("GetRanks:")
@@ -642,7 +642,7 @@ func (this *Novel) GetNewUps(size, offset int) []*models.Novel {
 	args.Limit = size
 	args.Offset = offset
 	args.OrderBy = "-chapter_updated_at"
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "updated_at", "chapter_updated_at"}
+	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "chapter_id", "chapter_title", "updated_at", "chapter_updated_at"}
 
 	var buf bytes.Buffer
 	buf.WriteString("GetNewUps:")

@@ -127,6 +127,9 @@ $(document).ready(function() {
                     <dd class="author">{{.Author}}</dd>
                     <dd class="date">{{if compare .ChapterUpdatedAt 0}}{{datetime .UpdatedAt "01-02 15:04"}}{{else}}{{datetime .ChapterUpdatedAt "01-02 15:04"}}{{end}}</dd>
                 </dl>
+                <dt class="chapter">
+                    <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
+                </dt>
             </li>
 		{{end}}
         </ul>
@@ -198,33 +201,23 @@ $(document).ready(function() {
 <div class="r-section">
     <div class="r-left">
         <h1 class="r-tit"><i class="r-ico hot-ico"></i>大家都在看</h1>
-		{{if not_nil .NovRank}}
-        <div class="d-book">
-            <a href="{{urlfor "home.BookController.Index" "id" .NovRank.Id}}" title="{{.NovRank.Name}}" target="_blank" class="re-pic-box">
-                <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .NovRank.Cover ""}}data-echo="{{.NovRank.Cover}}"{{end}} alt="{{.NovRank.Name}}">
-            </a>
-            <h2 class="re-book-name over-txt">
-            	<a href="{{urlfor "home.BookController.Index" "id" .NovRank.Id}}" title="{{.NovRank.Name}}" target="_blank">{{.NovRank.Name}}</a>
-            </h2>
-            <span class="source over-txt">{{.NovRank.Author}}</span>
-            <div class="brief-intro">{{str2html .NovRank.Desc}}</div>
-            <div class="corner x-corner-top"></div>
-            <div class="corner x-corner-bottom"></div>
-        </div>
-		{{end}}
-
-        <ul class="hot-book">
-		{{range .NovRanks}}
-          	<li>
-                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank" class="f-pic-box">
-                    <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} alt="{{.Name}}" style="width: 119px;height: 167px;">
-                </a>
-                <h3 class="f-book-name over-txt">
-					<a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">{{.Name}}</a>
-				</h3>
-                <span class="source over-txt">{{.Author}}</span>
-            </li>
-		{{end}}
+        <ul class="free-book">
+            {{range .NovRanks}}
+                 <li>
+                    <dl>
+                        <dd class="link_title">
+                            <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
+                                [{{.CateName}}] {{.Name}}
+                            </a>
+                        </dd>
+                        <dd class="author">{{.Author}}</dd>
+                        <dd class="date">{{if compare .ChapterUpdatedAt 0}}{{datetime .UpdatedAt "01-02 15:04"}}{{else}}{{datetime .ChapterUpdatedAt "01-02 15:04"}}{{end}}</dd>
+                    </dl>
+                    <dt class="chapter">
+                        <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
+                    </dt>
+                </li>
+            {{end}}
         </ul>
     </div>
     <div class="r-right">

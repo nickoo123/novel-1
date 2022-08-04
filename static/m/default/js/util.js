@@ -114,7 +114,7 @@
     function isMobile() {
         if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
             if (location.hostname !== 'wap.biqugesk.cc') {
-                location.replace('https://wap.biqugesk.cc'+(location.pathname).replace('/m',''));
+                // location.replace('https://wap.biqugesk.cc'+(location.pathname).replace('/m',''));
             }
         }
     }

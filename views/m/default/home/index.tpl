@@ -114,6 +114,25 @@
 		{{end}}
         </ul>
     </div>
+
+    <div class="column-wrap" id="block_2">
+        <h2 class="column-title">最新热更</h2>
+        {{range .NovNews}}
+        <ul class="vertical-list3">
+            <a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}">
+            <li>
+                <h3 class="book-title">
+                        {{.Name}}<em class="book-author">{{.Author}}</em>
+                </h3>
+                <p class="book-intro">{{substr_no_html .Desc 0 30}}...</p>
+                <p class="chapter">
+                    <a href="{{urlfor "m.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
+                </p>
+            </li>
+            </a>
+        {{end}}
+        </ul>
+    </div>
     
     <div class="column-wrap">
         <h2 class="column-title">精品推荐</h2>

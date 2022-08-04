@@ -16,7 +16,6 @@ package home
 
 import (
 	"math"
-
 	"novel/app/models"
 	"novel/app/services"
 )
@@ -43,18 +42,18 @@ func (this *HomeController) Index() {
 	this.Data["NovRecs"] = recsData
 
 	// 获取最新更新
-	this.Data["NovNews"] = services.NovelService.GetNewUps(40, 0)
+	this.Data["NovNews"] = services.NovelService.GetNewUps(60, 0)
 
 	// 获取阅读排行榜
-	novRanks := services.NovelService.GetRanks(9, 0)
-	this.Data["NovRank"] = nil
-	this.Data["NovRanks"] = nil
-	if len(novRanks) > 0 {
-		this.Data["NovRank"] = novRanks[0:1][0]
-		if len(novRanks) > 1 {
-			this.Data["NovRanks"] = novRanks[1:]
-		}
-	}
+	novRanks := services.NovelService.GetRanks(20, 0)
+	//this.Data["NovRank"] = nil
+	this.Data["NovRanks"] = novRanks
+	//if len(novRanks) > 0 {
+	//	this.Data["NovRank"] = novRanks[0:1][0]
+	//	if len(novRanks) > 1 {
+	//		this.Data["NovRanks"] = novRanks[1:]
+	//	}
+	//}
 
 	// 获取签约新书推荐
 	this.Data["NovSignNewBooks"] = services.NovelService.GetSignNewBooks(3, 0)

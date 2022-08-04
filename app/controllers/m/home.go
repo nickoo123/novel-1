@@ -38,7 +38,7 @@ func (this *HomeController) Index() {
 	this.Data["NovRecs"] = services.NovelService.GetRecs(3, 0)
 
 	// 获取小编热推
-	NovHots := services.NovelService.GetHots(40, 0)
+	NovHots := services.NovelService.GetHots(5, 0)
 
 	this.Data["NovHot"] = nil
 	this.Data["NovHots"] = nil
@@ -51,6 +51,9 @@ func (this *HomeController) Index() {
 
 	// 获取精品推荐
 	this.Data["NovVipRecs"] = services.NovelService.GetVipRecs(3, 0)
+
+	// 获取最新更新
+	this.Data["NovNews"] = services.NovelService.GetNewUps(20, 0)
 
 	// banner 轮播图
 	args := map[string]interface{}{

@@ -156,13 +156,22 @@ func URLFor(endpoint string, values ...interface{}) string {
 	if adminURL := services.ConfigService.String("AdminURL"); adminURL != "" {
 		url = strings.Replace(url, "/admin/", "/", 1)
 	}
-	if !strings.Contains(url, "admin/") && !strings.Contains(url, "m/") {
-		url = strings.Replace(url, "index?id=", "", 1)
-		url = strings.Replace(url, "detail?id=", "detail/", 1)
-		url = strings.Replace(url, "&novid=", "/", 1)
-		url = strings.Replace(url, "detail?novid=", "detail/", 1)
-		url = strings.Replace(url, "&id=", "/", 1)
-		url = url + ".html"
+
+	if !strings.Contains(url, "admin/") && url != "" {
+		if strings.Contains(url, "index?id=") {
+			url = strings.Replace(url, "index?id=", "", 1)
+		}
+		if strings.Contains(url, "detail?id=") {
+			url = strings.Replace(url, "detail?id=", "detail/", 1)
+			url = strings.Replace(url, "&novid=", "/", 1)
+		}
+		if strings.Contains(url, "detail?novid=") {
+			url = strings.Replace(url, "detail?novid=", "detail/", 1)
+			url = strings.Replace(url, "&id=", "/", 1)
+		}
+		if !strings.Contains(url, ".html") {
+			url = url + ".html"
+		}
 	}
 
 	return url
