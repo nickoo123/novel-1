@@ -28,6 +28,7 @@ var (
 	CrawlerService    *Crawler
 	ProxyService      *Proxy
 	ConfigService     *Config
+	SpliderService    *Splider
 	SearchService     *Search
 	SearchLogService  *SearchLog
 	SnatchRuleService *SnatchRule

@@ -37,23 +37,24 @@ func (this *HomeController) Index() {
 	// 获取小编推荐
 	this.Data["NovRecs"] = services.NovelService.GetRecs(3, 0)
 
-	// 获取小编热推
-	NovHots := services.NovelService.GetHots(5, 0)
+	// 获取阅读排行榜
+	novRanks := services.NovelService.GetRanks(20, 0)
+	this.Data["NovRanks"] = novRanks
 
-	this.Data["NovHot"] = nil
-	this.Data["NovHots"] = nil
-	if len(NovHots) > 0 {
-		this.Data["NovHot"] = NovHots[0:1][0]
-		if len(NovHots) > 1 {
-			this.Data["NovHots"] = NovHots[1:]
-		}
-	}
+	//this.Data["NovHot"] = nil
+	//this.Data["NovHots"] = nil
+	//if len(NovHots) > 0 {
+	//	this.Data["NovHot"] = NovHots[0:1][0]
+	//	if len(NovHots) > 1 {
+	//		this.Data["NovHots"] = NovHots[1:]
+	//	}
+	//}
 
 	// 获取精品推荐
 	this.Data["NovVipRecs"] = services.NovelService.GetVipRecs(3, 0)
 
 	// 获取最新更新
-	this.Data["NovNews"] = services.NovelService.GetNewUps(20, 0)
+	this.Data["NovNews"] = services.NovelService.GetNewUps(5, 0)
 
 	// banner 轮播图
 	args := map[string]interface{}{

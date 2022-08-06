@@ -46,6 +46,7 @@ var (
 	FeedbackModel   *Feedback
 	BannerModel     *Banner
 	ConfigModel     *Config
+	SpliderModel    *Splider
 	SearchModel     *Search
 	SearchLogModel  *SearchLog
 	SnatchRuleModel *SnatchRule

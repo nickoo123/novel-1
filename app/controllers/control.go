@@ -165,9 +165,11 @@ func URLFor(endpoint string, values ...interface{}) string {
 			url = strings.Replace(url, "detail?id=", "detail/", 1)
 			url = strings.Replace(url, "&novid=", "/", 1)
 		}
+		if strings.Contains(url, "book/ajaxchaps?id=") {
+			url = strings.Replace(url, "ajaxchaps?id=", "ajaxchaps/", 1)
+		}
 		if strings.Contains(url, "detail?novid=") {
-			url = strings.Replace(url, "detail?novid=", "detail/", 1)
-			url = strings.Replace(url, "&id=", "/", 1)
+			return url
 		}
 		if !strings.Contains(url, ".html") {
 			url = url + ".html"

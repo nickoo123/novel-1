@@ -80,28 +80,9 @@
     </div>
     
     <div class="column-wrap" id="block_2">
-        <h2 class="column-title">小编热推</h2>
-		{{if not_nil .NovHot}}
-        <ul class="vertical-list">
-			<a href="{{urlfor "m.BookController.Index" "id" .NovHot.Id}}" title="{{.NovHot.Name}}-{{.NovHot.CateName}}">
-            <li>
-                <div class="book-cover book-cover-size78">
-                    <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.NovHot.Cover}}" alt="{{.NovHot.Name}}">
-                </div>
-                <div class="book-detail">
-                    <h3 class="book-title">{{.NovHot.Name}}</h3>
-                    <p class="book-author"><em>{{.NovHot.Author}}</em> | <em>{{.NovHot.CateName}}</em></p>
-                    <p class="book-intro">{{substr_no_html .NovHot.Desc 0 35}}...</p>
-                    <p class="book-statistics">
-                        <i class="book-star"></i><i class="book-star"></i><i class="book-star"></i><i class="book-star"></i><i class="book-star"></i>{{.NovHot.Views}}人阅读
-                    </p>
-                </div>
-            </li>
-			</a>
-        </ul>
-		{{end}}
+        <h2 class="column-title">大家都在看</h2>
  
-		{{range .NovHots}}
+		{{range .NovRanks}}
         <ul class="vertical-list3">
 			<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}">
             <li>
@@ -109,6 +90,11 @@
                         {{.Name}}<em class="book-author">{{.Author}}</em>
                 </h3>
                 <p class="book-intro">{{substr_no_html .Desc 0 30}}...</p>
+                <p class="book-chapter">
+                    <a href="{{urlfor "m.BookController.Detail" "id" .ChapterId "novid" .Id}}" title="{{.ChapterTitle}}">
+                    {{.ChapterTitle}}
+                    </a>
+                </p>
             </li>
 			</a>
 		{{end}}
@@ -126,7 +112,7 @@
                 </h3>
                 <p class="book-intro">{{substr_no_html .Desc 0 30}}...</p>
                 <p class="chapter">
-                    <a href="{{urlfor "m.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
+                    <a href="{{urlfor "m.BookController.Detail" "id" .ChapterId "novid" .Id}}" title="{{.ChapterTitle}}">{{.ChapterTitle}}</a>
                 </p>
             </li>
             </a>

@@ -114,34 +114,33 @@ $(document).ready(function() {
 
 <div class="r-section">
     <div class="r-left">
-        <h1 class="r-tit"><i class="r-ico free-ico"></i>最新热更</h1>
+        <h1 class="r-tit"><i class="r-ico hot-ico"></i>大家都在看</h1>
         <ul class="free-book">
-		{{range .NovNews}}
-        	 <li>
-        	    <dl>
-                    <dd class="link_title">
-                        <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
-                            [{{.CateName}}] {{.Name}}
-                        </a>
-                    </dd>
-                    <dd class="author">{{.Author}}</dd>
-                    <dd class="date">{{if compare .ChapterUpdatedAt 0}}{{datetime .UpdatedAt "01-02 15:04"}}{{else}}{{datetime .ChapterUpdatedAt "01-02 15:04"}}{{end}}</dd>
-                </dl>
-                <dt class="chapter">
-                    <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
-                </dt>
-            </li>
-		{{end}}
+            {{range .NovRanks}}
+                 <li>
+                    <dl>
+                        <dd class="link_title">
+                            <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
+                                [{{.CateName}}] {{.Name}}
+                            </a>
+                        </dd>
+                        <dd class="author">{{.Author}}</dd>
+                        <dd class="date">{{if compare .ChapterUpdatedAt 0}}{{datetime .UpdatedAt "01-02 15:04"}}{{else}}{{datetime .ChapterUpdatedAt "01-02 15:04"}}{{end}}</dd>
+                    </dl>
+                    <dt class="chapter">
+                        <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
+                    </dt>
+                </li>
+            {{end}}
         </ul>
     </div>
-    
     <div class="r-right">
         <div class="tab-box">
-            <a href="javascript:void(0)" onmouseover="changeRank(3, this)" class="cur">新书榜</a>
-            <a href="javascript:void(0)" onmouseover="changeRank(4, this)">原创榜</a>
+            <a href="javascript:void(0)" onmouseover="changeRank(5, this)" class="cur">VIP打赏</a>
+            <a href="javascript:void(0)" onmouseover="changeRank(6, this)">VIP更新</a>
         </div>
-        <ul class="r-list" id="rank_3"></ul>
-        <ul class="r-list" id="rank_4" style="display: none;"></ul>
+        <ul class="r-list" id="rank_5"></ul>
+        <ul class="r-list" id="rank_6" style="display: none;"></ul>
     </div>
 </div>
 
@@ -200,33 +199,34 @@ $(document).ready(function() {
 
 <div class="r-section">
     <div class="r-left">
-        <h1 class="r-tit"><i class="r-ico hot-ico"></i>大家都在看</h1>
+        <h1 class="r-tit"><i class="r-ico free-ico"></i>最新热更</h1>
         <ul class="free-book">
-            {{range .NovRanks}}
-                 <li>
-                    <dl>
-                        <dd class="link_title">
-                            <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
-                                [{{.CateName}}] {{.Name}}
-                            </a>
-                        </dd>
-                        <dd class="author">{{.Author}}</dd>
-                        <dd class="date">{{if compare .ChapterUpdatedAt 0}}{{datetime .UpdatedAt "01-02 15:04"}}{{else}}{{datetime .ChapterUpdatedAt "01-02 15:04"}}{{end}}</dd>
-                    </dl>
-                    <dt class="chapter">
-                        <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
-                    </dt>
-                </li>
-            {{end}}
+		{{range .NovNews}}
+        	 <li>
+        	    <dl>
+                    <dd class="link_title">
+                        <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
+                            [{{.CateName}}] {{.Name}}
+                        </a>
+                    </dd>
+                    <dd class="author">{{.Author}}</dd>
+                    <dd class="date">{{if compare .ChapterUpdatedAt 0}}{{datetime .UpdatedAt "01-02 15:04"}}{{else}}{{datetime .ChapterUpdatedAt "01-02 15:04"}}{{end}}</dd>
+                </dl>
+                <dt class="chapter">
+                    <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
+                </dt>
+            </li>
+		{{end}}
         </ul>
     </div>
+
     <div class="r-right">
         <div class="tab-box">
-            <a href="javascript:void(0)" onmouseover="changeRank(5, this)" class="cur">VIP打赏</a>
-            <a href="javascript:void(0)" onmouseover="changeRank(6, this)">VIP更新</a>
+            <a href="javascript:void(0)" onmouseover="changeRank(3, this)" class="cur">新书榜</a>
+            <a href="javascript:void(0)" onmouseover="changeRank(4, this)">原创榜</a>
         </div>
-        <ul class="r-list" id="rank_5"></ul>
-        <ul class="r-list" id="rank_6" style="display: none;"></ul>
+        <ul class="r-list" id="rank_3"></ul>
+        <ul class="r-list" id="rank_4" style="display: none;"></ul>
     </div>
 </div>
 

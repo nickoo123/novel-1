@@ -15,8 +15,8 @@
 package home
 
 import (
+	"fmt"
 	"github.com/mssola/user_agent"
-
 	"novel/app/controllers"
 	"novel/app/services"
 )
@@ -43,6 +43,8 @@ func (this *BaseController) Prepare() {
 
 	theme := services.ConfigService.String("Theme")
 
+	// insert splider
+	services.SpliderService.InsertOrIncrement(fmt.Sprintf("%s", this.Ctx.Request))
 	this.Module = "home/" + theme
 	this.Layout = "home/" + theme + "/layout.tpl"
 
