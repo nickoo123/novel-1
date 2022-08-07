@@ -92,6 +92,13 @@ func (this *Novel) GetByName(name string) *models.Novel {
 	return nov
 }
 
+// 判断小说HashKey是否存在
+func (this *Novel) GetByHashKey(hashkey string) *models.Novel {
+	nov := models.NovelModel.GetByHashKey(hashkey)
+
+	return nov
+}
+
 // 获取单个管理员信息
 func (this *Novel) Get(id uint32) *models.Novel {
 	if id < 0 {
@@ -119,6 +126,7 @@ func (this *Novel) Get(id uint32) *models.Novel {
 		}
 		var novs = models.Novel{
 			Id:               nov.Id,
+			HashKey:          nov.HashKey,
 			Name:             nov.Name,
 			Desc:             nov.Desc,
 			Cover:            nov.Cover,
@@ -158,10 +166,15 @@ func (this *Novel) GetTodayRecs(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "author"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "author"}
 	args.FilterMaps = map[string]int{
 		"is_today_rec": 1,
 	}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	var buf bytes.Buffer
 	buf.WriteString("GetTodayRecs:")
@@ -182,6 +195,7 @@ func (this *Novel) GetTodayRecs(size, offset int) []*models.Novel {
 		for _, n := range novs {
 			var nov = models.Novel{
 				Id:               n.Id,
+				HashKey:          n.HashKey,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -223,10 +237,15 @@ func (this *Novel) GetRecs(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "cate_id", "cate_name", "author"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "cate_id", "cate_name", "author"}
 	args.FilterMaps = map[string]int{
 		"is_rec": 1,
 	}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 	var buf bytes.Buffer
 	buf.WriteString("GetRecs:")
 	buf.WriteString("size_" + strconv.Itoa(size))
@@ -246,6 +265,7 @@ func (this *Novel) GetRecs(size, offset int) []*models.Novel {
 		for _, n := range novs {
 			var nov = models.Novel{
 				Id:               n.Id,
+				HashKey:          n.HashKey,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -287,10 +307,15 @@ func (this *Novel) GetVipRecs(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover"}
+	args.Fields = []string{"id", "hash_key", "name", "cover"}
 	args.FilterMaps = map[string]int{
 		"is_vip_rec": 1,
 	}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	var buf bytes.Buffer
 	buf.WriteString("GetVipRecs:")
@@ -311,6 +336,7 @@ func (this *Novel) GetVipRecs(size, offset int) []*models.Novel {
 		for _, n := range novs {
 			var nov = models.Novel{
 				Id:               n.Id,
+				HashKey:          n.HashKey,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -352,10 +378,15 @@ func (this *Novel) GetOriginals(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
 	args.FilterMaps = map[string]int{
 		"is_original": 1,
 	}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	novs, _ := this.GetAll(args)
 
@@ -367,10 +398,15 @@ func (this *Novel) GetHots(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
 	args.FilterMaps = map[string]int{
 		"is_hot": 1,
 	}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	var buf bytes.Buffer
 	buf.WriteString("GetHots:")
@@ -391,6 +427,7 @@ func (this *Novel) GetHots(size, offset int) []*models.Novel {
 		for _, n := range novs {
 			var nov = models.Novel{
 				Id:               n.Id,
+				HashKey:          n.HashKey,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -432,10 +469,15 @@ func (this *Novel) GetSignNewBooks(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
 	args.FilterMaps = map[string]int{
 		"is_sign_new_book": 1,
 	}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	var buf bytes.Buffer
 	buf.WriteString("GetSignNewBooks:")
@@ -456,6 +498,7 @@ func (this *Novel) GetSignNewBooks(size, offset int) []*models.Novel {
 		for _, n := range novs {
 			var nov = models.Novel{
 				Id:               n.Id,
+				HashKey:          n.HashKey,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -497,10 +540,15 @@ func (this *Novel) GetCollects(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
 	args.FilterMaps = map[string]int{
 		"is_collect": 1,
 	}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	var buf bytes.Buffer
 	buf.WriteString("GetCollects:")
@@ -521,6 +569,7 @@ func (this *Novel) GetCollects(size, offset int) []*models.Novel {
 		for _, n := range novs {
 			var nov = models.Novel{
 				Id:               n.Id,
+				HashKey:          n.HashKey,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -563,7 +612,12 @@ func (this *Novel) GetRanks(size, offset int) []*models.Novel {
 	args.Limit = size
 	args.Offset = offset
 	args.OrderBy = "-views"
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "chapter_id", "chapter_title", "updated_at", "chapter_updated_at"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "chapter_id", "chapter_title", "updated_at", "chapter_updated_at"}
+	//args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	var buf bytes.Buffer
 	buf.WriteString("GetRanks:")
@@ -584,6 +638,7 @@ func (this *Novel) GetRanks(size, offset int) []*models.Novel {
 		for _, n := range novs {
 			var nov = models.Novel{
 				Id:               n.Id,
+				HashKey:          n.HashKey,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -626,10 +681,15 @@ func (this *Novel) GetCateRanks(cateId, size, offset int) []*models.Novel {
 	args.Limit = size
 	args.Offset = offset
 	args.OrderBy = "-views"
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
 	args.FilterMaps = map[string]int{
 		"cate_id": cateId,
 	}
+	//args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	novs, _ := this.GetAll(args)
 
@@ -642,7 +702,12 @@ func (this *Novel) GetNewUps(size, offset int) []*models.Novel {
 	args.Limit = size
 	args.Offset = offset
 	args.OrderBy = "-chapter_updated_at"
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "chapter_id", "chapter_title", "updated_at", "chapter_updated_at"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "chapter_id", "chapter_title", "updated_at", "chapter_updated_at"}
+	//args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	var buf bytes.Buffer
 	buf.WriteString("GetNewUps:")
@@ -663,6 +728,7 @@ func (this *Novel) GetNewUps(size, offset int) []*models.Novel {
 		for _, n := range novs {
 			var nov = models.Novel{
 				Id:               n.Id,
+				HashKey:          n.HashKey,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -704,7 +770,12 @@ func (this *Novel) GetNews(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "created_at"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name", "created_at"}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	var buf bytes.Buffer
 	buf.WriteString("GetNews:size_")
@@ -724,6 +795,7 @@ func (this *Novel) GetNews(size, offset int) []*models.Novel {
 		for _, n := range novs {
 			var nov = models.Novel{
 				Id:               n.Id,
+				HashKey:          n.HashKey,
 				Name:             n.Name,
 				Desc:             n.Desc,
 				Cover:            n.Cover,
@@ -765,10 +837,15 @@ func (this *Novel) GetVipRewards(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
 	args.FilterMaps = map[string]int{
 		"is_vip_reward": 1,
 	}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	novs, _ := this.GetAll(args)
 
@@ -780,10 +857,15 @@ func (this *Novel) GetVipUps(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
 	args.FilterMaps = map[string]int{
 		"is_vip_up": 1,
 	}
+	args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	novs, _ := this.GetAll(args)
 
@@ -795,7 +877,7 @@ func (this *Novel) GetEnds(size, offset int) []*models.Novel {
 	args := models.ArgsNovelList{}
 	args.Limit = size
 	args.Offset = offset
-	args.Fields = []string{"id", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "views", "author", "cate_id", "cate_name"}
 	args.FilterMaps = map[string]int{
 		"status": int(models.BOOKFINISH),
 	}
@@ -879,7 +961,12 @@ func (this *Novel) GetList(size, offset int, qs map[string]interface{}) ([]*mode
 		args.FilterMaps["status"] = status.(int)
 	}
 
-	args.Fields = []string{"id", "name", "cover", "desc", "author", "cate_id", "cate_name", "text_num", "status", "cate_id", "chapter_title"}
+	args.Fields = []string{"id", "hash_key", "name", "cover", "desc", "author", "cate_id", "cate_name", "text_num", "status", "cate_id", "chapter_title"}
+	//args.OrderBy = "un_complete_chap_num"
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	novs, count := this.GetAll(args)
 
@@ -1056,7 +1143,7 @@ func (this *Novel) UpRecBatch(field string, books []string) error {
 }
 
 // 修改章节信息
-func (this *Novel) UpChapterInfo(novId uint32, novTextNum, chapterNum int, chapterId uint64, chapterTitle string, status uint8) error {
+func (this *Novel) UpChapterInfo(novId uint32, novTextNum, chapterNum int, chapterId uint64, chapterTitle string, status uint8, unCompleteChapNum int, unCompleteChapid string) error {
 	nov := this.Get(novId)
 	if nov == nil {
 		return errors.New("小说不存在")
@@ -1067,6 +1154,12 @@ func (this *Novel) UpChapterInfo(novId uint32, novTextNum, chapterNum int, chapt
 	nov.ChapterId = chapterId
 	nov.ChapterTitle = chapterTitle
 	nov.ChapterUpdatedAt = uint32(time.Now().Unix())
+	if unCompleteChapNum > 0 {
+		nov.UnCompleteChapNum = unCompleteChapNum
+	}
+	if unCompleteChapid != "" {
+		nov.UnCompleteChapid = unCompleteChapid
+	}
 
 	if status > 0 {
 		nov.Status = status

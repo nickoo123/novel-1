@@ -80,10 +80,10 @@ $(document).ready(function() {
          <ul class="re-book" id="re_book_{{$key}}" {{if ne $key 0}}style="display: none;"{{end}}>
 			 {{range $k, $v := $val}}
               <li>
-                <a href="{{urlfor "home.BookController.Index" "id" $v.Id}}" title="{{$v.Name}}" target="_blank" class="re-pic-box">
+                <a href="{{urlfor "home.BookController.Index" "id" $v.HashKey}}" title="{{$v.Name}}" target="_blank" class="re-pic-box">
                     <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" {{if ne $v.Cover ""}}data-echo="{{$v.Cover}}"{{end}} alt="{{$v.Name}}" style="width: 179px;height: 249px;">
                 </a>
-                <h2 class="re-book-name over-txt"><a href="{{urlfor "home.BookController.Index" "id" $v.Id}}" title="{{$v.Name}}" target="_blank">{{$v.Name}}</a></h2>
+                <h2 class="re-book-name over-txt"><a href="{{urlfor "home.BookController.Index" "id" $v.HashKey}}" title="{{$v.Name}}" target="_blank">{{$v.Name}}</a></h2>
                 <span class="source over-txt">{{$v.Author}}</span>
                 <a href="{{urlfor "home.HomeController.Cate" "id" $v.CateId}}" title="{{$v.CateName}}" class="r-type">{{$v.CateName}}</a>
               </li>
@@ -120,7 +120,7 @@ $(document).ready(function() {
                  <li>
                     <dl>
                         <dd class="link_title">
-                            <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
+                            <a href="{{urlfor "home.BookController.Index" "id" .HashKey}}" title="{{.Name}}" target="_blank">
                                 [{{.CateName}}] {{.Name}}
                             </a>
                         </dd>
@@ -128,7 +128,7 @@ $(document).ready(function() {
                         <dd class="date">{{if compare .ChapterUpdatedAt 0}}{{datetime .UpdatedAt "01-02 15:04"}}{{else}}{{datetime .ChapterUpdatedAt "01-02 15:04"}}{{end}}</dd>
                     </dl>
                     <dt class="chapter">
-                        <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
+                        <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .HashKey}}" target="_blank">{{.ChapterTitle}}</a>
                     </dt>
                 </li>
             {{end}}
@@ -168,7 +168,7 @@ $(document).ready(function() {
         <ul class="boy-list">
 		{{range .NovSignNewBooks}}
         	 <li>
-                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
+                <a href="{{urlfor "home.BookController.Index" "id" .HashKey}}" title="{{.Name}}" target="_blank">
                     <div class="rotate">
                         <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" alt="{{.Name}}" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} style="top: 20px; left: 47px; z-index: 2;" class="cur">
                     </div>
@@ -184,7 +184,7 @@ $(document).ready(function() {
         <ul class="girl-list">
 		{{range .NovCollects}}
         	 <li>
-                <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
+                <a href="{{urlfor "home.BookController.Index" "id" .HashKey}}" title="{{.Name}}" target="_blank">
                     <div class="rotate">
                         <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" alt="{{.Name}}" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}} style="top: 20px; left: 47px; z-index: 2;" class="cur">
                     </div>
@@ -205,7 +205,7 @@ $(document).ready(function() {
         	 <li>
         	    <dl>
                     <dd class="link_title">
-                        <a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">
+                        <a href="{{urlfor "home.BookController.Index" "id" .HashKey}}" title="{{.Name}}" target="_blank">
                             [{{.CateName}}] {{.Name}}
                         </a>
                     </dd>
@@ -213,7 +213,7 @@ $(document).ready(function() {
                     <dd class="date">{{if compare .ChapterUpdatedAt 0}}{{datetime .UpdatedAt "01-02 15:04"}}{{else}}{{datetime .ChapterUpdatedAt "01-02 15:04"}}{{end}}</dd>
                 </dl>
                 <dt class="chapter">
-                    <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .Id}}" target="_blank">{{.ChapterTitle}}</a>
+                    <a href="{{urlfor "home.BookController.Detail" "id" .ChapterId "novid" .HashKey}}" target="_blank">{{.ChapterTitle}}</a>
                 </dt>
             </li>
 		{{end}}
@@ -331,11 +331,11 @@ $(document).ready(function() {
 			  books = books + 
 			  '  ><div class="open"> '+
 			  '      <em class="rank rank1">'+(a+1)+'</em> '+
-			  '      <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" title="'+d[a].name+'" target="_blank" class="rank-pic"> '+
+			  '      <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].hash_key+'" title="'+d[a].name+'" target="_blank" class="rank-pic"> '+
 			   '         <img src="'+cover+'" alt="'+d[a].name+'" style="width: 74px;height: 102px;" /> '+
 			   '     </a> '+
 			   '     <div class="b-info"> '+
-			   '         <h2 class="re-book-name"><a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" target="_blank" >'+d[a].name+'</a></h2> '+
+			   '         <h2 class="re-book-name"><a href="{{urlfor "home.BookController.Index"}}?id='+d[a].hash_key+'" target="_blank" >'+d[a].name+'</a></h2> '+
 			   '         <span class="source over-txt">'+d[a].author+'</span> '+
 			   '     </div> '+
 			   ' </div> '+
@@ -348,7 +348,7 @@ $(document).ready(function() {
 			  }
  
 			  books = books +
-			  '<h3 class="book-name over-txt"><a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" target="_blank" >'+d[a].name+'</a></h3> '+
+			  '<h3 class="book-name over-txt"><a href="{{urlfor "home.BookController.Index"}}?id='+d[a].hash_key+'" target="_blank" >'+d[a].name+'</a></h3> '+
 			  ' </div>'+
 			  '</li>';
 		}
@@ -391,14 +391,14 @@ $(document).ready(function() {
 
 		  books = books + 
 		  '<li> '+
-		  '      <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" title="' + d[a].name + '" target="_blank" class="pic-container">'+
+		  '      <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].hash_key+'" title="' + d[a].name + '" target="_blank" class="pic-container">'+
 		  '          <img src="' + cover + '" alt="' + d[a].name + '" style="width: 120px;height: 163px;" />'+
 		  '      </a>'+
 		  '      <div class="book-info">'+
-		  '          <h2 class="c-book-name over-txt"><a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" target="_blank" >' + d[a].name + '</a></h2>'+
+		  '          <h2 class="c-book-name over-txt"><a href="{{urlfor "home.BookController.Index"}}?id='+d[a].hash_key+'" target="_blank" >' + d[a].name + '</a></h2>'+
 		  '          <span class="source over-txt">' +  d[a].author + '</span>'+
 		  '          <div class="brief-intro brief-intro2">' +d[a].desc + '</div>'+
-		  '          <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].id+'" target="_blank" class="read-now">立即阅读</a>'+
+		  '          <a href="{{urlfor "home.BookController.Index"}}?id='+d[a].hash_key+'" target="_blank" class="read-now">立即阅读</a>'+
 		  '      </div>'+
 		  '  </li>';
 		}

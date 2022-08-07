@@ -31,6 +31,7 @@ type ArgsBase struct {
 	Offset  int
 	OrderBy string
 	Fields  []string
+	Exclude map[string]interface{}
 	Keyword string
 }
 

@@ -27,7 +27,12 @@ type BookController struct {
 
 // 首页
 func (this *BookController) Index() {
-	id, _ := this.GetUint32("id")
+	hashkey := this.GetString("id")
+	novs := services.NovelService.GetByHashKey(hashkey)
+	if novs == nil {
+		this.Msg("参数错误，无法访问")
+	}
+	id := novs.Id
 	if id < 1 {
 		this.Msg("参数错误，无法访问")
 	}
@@ -77,13 +82,13 @@ func (this *BookController) Index() {
 // 查看小说章节内容
 func (this *BookController) Detail() {
 	id, _ := this.GetUint64("id")
-	novId, _ := this.GetUint32("novid")
-	if id < 1 || novId < 1 {
+	novId := this.GetString("novid")
+	if id < 1 || novId == "" {
 		this.Msg("参数错误，无法访问")
 	}
 
 	// 获取小说章节信息
-	chap := services.ChapterService.Get(id, novId)
+	chap := services.ChapterService.GetByHashKey(id, novId)
 	if chap == nil {
 		this.Msg("该章节不存在或者已被删除")
 	}
@@ -187,6 +192,7 @@ func (this *BookController) AjaxRank() {
 		tmp := make(map[string]interface{})
 
 		tmp["id"] = nov.Id
+		tmp["hash_key"] = nov.HashKey
 		tmp["name"] = nov.Name
 		tmp["author"] = nov.Author
 		tmp["cate_name"] = nov.CateName

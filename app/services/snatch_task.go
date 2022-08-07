@@ -16,6 +16,7 @@ package services
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 	"sync"
 	"time"
@@ -356,7 +357,18 @@ func (this *SnatchTask) upChapter(source, chapLink string) uint8 {
 		lastId = lastChap.Id
 		lastTitle = lastChap.Title
 	}
-	NovelService.UpChapterInfo(nov.Id, novTextNum, chapterNum, lastId, lastTitle, status)
+
+	nilChaps := ChapterService.GetEmptyChaps(nov.Id)
+	chapids := []string{}
+	for _, chap := range nilChaps {
+		chapids = append(chapids, fmt.Sprintf("%v", chap.Id))
+	}
+	unCompleteChapNum := len(chapids) - 1
+	unCompleteChapid := ""
+	if len(chapids)-1 > 0 {
+		unCompleteChapid = strings.Join(chapids, ",")
+	}
+	NovelService.UpChapterInfo(nov.Id, novTextNum, chapterNum, lastId, lastTitle, status, unCompleteChapNum, unCompleteChapid)
 
 	// 最后更新章节时间
 	this.lastUpChapTime = time.Now().Unix()

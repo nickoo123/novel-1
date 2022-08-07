@@ -38,6 +38,60 @@ func NewChapter() *Chapter {
 }
 
 // 获取单个章节内容
+func (this *Chapter) GetByHashKey(id uint64, hashkey string) *models.Chapter {
+	if id < 1 {
+		return nil
+	}
+
+	novs := NovelService.GetByHashKey(hashkey)
+
+	if novs == nil {
+		return nil
+	}
+	novId := novs.Id
+
+	var buf bytes.Buffer
+	buf.WriteString("Chapter:get:")
+	buf.WriteString("id_" + string(id))
+	buf.WriteString(":novId_" + string(novId))
+	res := utils.GetRedisKeys(buf.String())
+	if res != nil {
+		var chaps *models.Chapter
+		str := fmt.Sprintf("%s", res)
+		if err := json.Unmarshal([]byte(str), &chaps); err != nil {
+			fmt.Println("err:-----", err.Error())
+			return nil
+		}
+		return chaps
+	} else {
+		m := &models.Chapter{Id: id, NovId: novId}
+		err := m.Read()
+		if err != nil {
+			return nil
+		}
+		var nov = models.Chapter{
+			Id:        m.Id,
+			NovId:     m.NovId,
+			ChapterNo: m.ChapterNo,
+			Title:     m.Title,
+			Desc:      m.Desc,
+			Link:      m.Link,
+			Source:    m.Source,
+			Views:     m.Views,
+			TextNum:   m.TextNum,
+			Status:    m.Status,
+			TryViews:  m.TryViews,
+			CreatedAt: m.CreatedAt,
+			UpdatedAt: m.UpdatedAt,
+			DeletedAt: m.DeletedAt,
+		}
+		str, _ := json.Marshal(nov)
+		utils.SetRedisKeyValue(buf.String(), string(str))
+		return m
+	}
+}
+
+// 获取单个章节内容
 func (this *Chapter) Get(id uint64, novId uint32) *models.Chapter {
 	if id < 1 {
 		return nil
@@ -327,8 +381,11 @@ func (this *Chapter) Save(chapter *models.Chapter) error {
 		return err
 	}
 
+	unCompleteChapNum := 0
+	unCompleteChapid := ""
+
 	// 更新小说主信息
-	NovelService.UpChapterInfo(novel.Id, int(novTextNum), int(chapterNum), chapter.Id, chapter.Title, novel.Status)
+	NovelService.UpChapterInfo(novel.Id, int(novTextNum), int(chapterNum), chapter.Id, chapter.Title, novel.Status, unCompleteChapNum, unCompleteChapid)
 
 	return nil
 }

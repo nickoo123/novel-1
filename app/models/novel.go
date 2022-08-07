@@ -39,34 +39,37 @@ type ArgsNovelList struct {
 
 // 小说内容
 type Novel struct {
-	Id               uint32 `orm:"auto"`
-	Name             string `orm:"size(100)"`
-	Desc             string `orm:"size(2555)"`
-	Cover            string `orm:"size(100);"`
-	CateId           uint32 `orm:"size(11);default(0);"`
-	CateName         string `orm:"size(30);"`
-	Author           string `orm:"size(30);"`
-	IsOriginal       uint8  `orm:"size(1);default(0);"`
-	IsHot            uint8  `orm:"size(1);default(0);"`
-	IsRec            uint8  `orm:"size(1);default(0);"`
-	IsTodayRec       uint8  `orm:"size(1);default(0);"`
-	IsVipRec         uint8  `orm:"size(1);default(0);"`
-	IsVipReward      uint8  `orm:"size(1);default(0);"`
-	IsVipUp          uint8  `orm:"size(1);default(0);"`
-	IsSignNewBook    uint8  `orm:"size(1);default(0);"`
-	IsCollect        uint8  `orm:"size(1);default(0);"`
-	Status           uint8  `orm:"size(11);default(0);"`
-	Views            uint32 `orm:"size(11);default(0);"`
-	CollectNum       uint32 `orm:"size(11);default(0)"`
-	RecNum           uint32 `orm:"size(11);default(0)"`
-	TextNum          uint32 `orm:"size(11);default(0)"`
-	ChapterNum       uint32 `orm:"size(6);default(0)"`
-	ChapterUpdatedAt uint32 `orm:"size(11);default(0);"`
-	ChapterId        uint64 `orm:"size(20);default(0);"`
-	ChapterTitle     string `orm:"size(100);"`
-	CreatedAt        uint32 `orm:"size(11);default(0);"`
-	UpdatedAt        uint32 `orm:"size(11);default(0);"`
-	DeletedAt        uint32 `orm:"size(11);default(0)"`
+	Id                uint32 `orm:"auto"`
+	HashKey           string `orm:"size(16);unique"`
+	Name              string `orm:"size(100)"`
+	Desc              string `orm:"size(2555)"`
+	Cover             string `orm:"size(100);"`
+	CateId            uint32 `orm:"size(11);default(0);"`
+	CateName          string `orm:"size(30);"`
+	Author            string `orm:"size(30);"`
+	IsOriginal        uint8  `orm:"size(1);default(0);"`
+	IsHot             uint8  `orm:"size(1);default(0);"`
+	IsRec             uint8  `orm:"size(1);default(0);"`
+	IsTodayRec        uint8  `orm:"size(1);default(0);"`
+	IsVipRec          uint8  `orm:"size(1);default(0);"`
+	IsVipReward       uint8  `orm:"size(1);default(0);"`
+	IsVipUp           uint8  `orm:"size(1);default(0);"`
+	IsSignNewBook     uint8  `orm:"size(1);default(0);"`
+	IsCollect         uint8  `orm:"size(1);default(0);"`
+	Status            uint8  `orm:"size(11);default(0);"`
+	Views             uint32 `orm:"size(11);default(0);"`
+	CollectNum        uint32 `orm:"size(11);default(0)"`
+	RecNum            uint32 `orm:"size(11);default(0)"`
+	TextNum           uint32 `orm:"size(11);default(0)"`
+	ChapterNum        uint32 `orm:"size(6);default(0)"`
+	ChapterUpdatedAt  uint32 `orm:"size(11);default(0);"`
+	ChapterId         uint64 `orm:"size(20);default(0);"`
+	ChapterTitle      string `orm:"size(100);"`
+	UnCompleteChapNum int    `orm:"size(6);default(0);"`
+	UnCompleteChapid  string `orm:"size(1000);"`
+	CreatedAt         uint32 `orm:"size(11);default(0);"`
+	UpdatedAt         uint32 `orm:"size(11);default(0);"`
+	DeletedAt         uint32 `orm:"size(11);default(0)"`
 }
 
 func NewNovel() *Novel {
@@ -174,6 +177,19 @@ func (m *Novel) GetByName(name string) *Novel {
 	return &n
 }
 
+// 判断小说是否存在
+func (m *Novel) GetByHashKey(hashkey string) *Novel {
+	var n Novel
+
+	if len(hashkey) == 0 {
+		return &Novel{}
+	}
+
+	m.query().Filter("hash_key", strings.TrimSpace(hashkey)).One(&n, "id")
+
+	return &n
+}
+
 // 获取小说列表
 func (m *Novel) GetAll(args ArgsNovelList) ([]*Novel, int64) {
 	list := make([]*Novel, 0)
@@ -193,9 +209,14 @@ func (m *Novel) GetAll(args ArgsNovelList) ([]*Novel, int64) {
 	}
 
 	// 获取字段
-	fields := []string{"id", "name", "author", "cate_id", "cate_name", "status", "is_original", "is_hot", "is_rec", "is_vip_rec", "chapter_title", "chapter_updated_at", "chapter_num"}
+	fields := []string{"id", "hash_key", "name", "author", "cate_id", "cate_name", "status", "is_original", "is_hot", "is_rec", "is_vip_rec", "chapter_title", "chapter_updated_at", "chapter_num"}
 	if len(args.Fields) > 0 {
 		fields = args.Fields
+	}
+
+	if args.Exclude != nil {
+		exkey := fmt.Sprintf("%s", args.Exclude["key"])
+		qs = qs.Exclude(exkey, args.Exclude["value"])
 	}
 
 	// 分页

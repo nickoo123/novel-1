@@ -77,12 +77,12 @@
 						{{range .Novs}}
                             <li>
 								<div class="book-img-box">
-									<a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank" class="f-pic-box">
+									<a href="{{urlfor "home.BookController.Index" "id" .HashKey}}" title="{{.Name}}" target="_blank" class="f-pic-box">
 										<img src="{{$.mOut.ViewUrl}}img/nocover.jpg" alt="{{.Name}}" {{if ne .Cover ""}}data-echo="{{.Cover}}"{{end}}>
 									</a>
 								</div>
 								<div class="book-mid-info">
-									<h4><a href="{{urlfor "home.BookController.Index" "id" .Id}}" title="{{.Name}}" target="_blank">{{.Name}}</a></h4>
+									<h4><a href="{{urlfor "home.BookController.Index" "id" .HashKey}}" title="{{.Name}}" target="_blank">{{.Name}}</a></h4>
 									<p class="author">
 										<a class="name" href="javascript:;" title="{{.Author}}">{{.Author}}</a>
 										<em>|</em>

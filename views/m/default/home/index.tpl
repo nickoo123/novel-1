@@ -50,7 +50,7 @@
         <blockquote>
             <div id="broadcast">
 			{{range .NovTodayRecs}}
-                <a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}" id="boradcast_0" type="3">
+                <a href="{{urlfor "m.BookController.Index" "id" .HashKey}}" title="{{.Name}}" id="boradcast_0" type="3">
                     {{.Name}}
                 </a>
 			{{end}}
@@ -66,7 +66,7 @@
 				<tr>
 				{{range .NovRecs}}
 					<td>
-					<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}">
+					<a href="{{urlfor "m.BookController.Index" "id" .HashKey}}" title="{{.Name}}">
 						<div class="book-detail">
 							<div class="book-cover"><img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.Cover}}" alt="{{.Name}}"></div>
 							<h3 class="book-title">{{.Name}}</h3>
@@ -84,14 +84,14 @@
  
 		{{range .NovRanks}}
         <ul class="vertical-list3">
-			<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}">
+			<a href="{{urlfor "m.BookController.Index" "id" .HashKey}}" title="{{.Name}}">
             <li>
                 <h3 class="book-title">
                         {{.Name}}<em class="book-author">{{.Author}}</em>
                 </h3>
                 <p class="book-intro">{{substr_no_html .Desc 0 30}}...</p>
                 <p class="book-chapter">
-                    <a href="{{urlfor "m.BookController.Detail" "id" .ChapterId "novid" .Id}}" title="{{.ChapterTitle}}">
+                    <a href="{{urlfor "m.BookController.Detail" "id" .ChapterId "novid" .HashKey}}" title="{{.ChapterTitle}}">
                     {{.ChapterTitle}}
                     </a>
                 </p>
@@ -105,14 +105,14 @@
         <h2 class="column-title">最新热更</h2>
         {{range .NovNews}}
         <ul class="vertical-list3">
-            <a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}">
+            <a href="{{urlfor "m.BookController.Index" "id" .HashKey}}" title="{{.Name}}">
             <li>
                 <h3 class="book-title">
                         {{.Name}}<em class="book-author">{{.Author}}</em>
                 </h3>
                 <p class="book-intro">{{substr_no_html .Desc 0 30}}...</p>
                 <p class="chapter">
-                    <a href="{{urlfor "m.BookController.Detail" "id" .ChapterId "novid" .Id}}" title="{{.ChapterTitle}}">{{.ChapterTitle}}</a>
+                    <a href="{{urlfor "m.BookController.Detail" "id" .ChapterId "novid" .HashKey}}" title="{{.ChapterTitle}}">{{.ChapterTitle}}</a>
                 </p>
             </li>
             </a>
@@ -128,7 +128,7 @@
                     <tr>
 					{{range .NovVipRecs}}
                         <td>
-						<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{.Name}}">
+						<a href="{{urlfor "m.BookController.Index" "id" .HashKey}}" title="{{.Name}}">
                             <div class="book-detail">
                                 <div class="book-cover">
                                     <img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.Cover}}" alt="{{.Name}}">

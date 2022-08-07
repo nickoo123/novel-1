@@ -175,6 +175,8 @@ func (this *Snatch) InitNovel(url string) error {
 					isUp = true
 				}
 
+				nov.HashKey = RandUnquieString(16)
+
 				// 更新小说作者名称
 				if nv.Author == "" {
 					nv.Author = nov.Author

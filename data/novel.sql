@@ -193,6 +193,7 @@ DROP TABLE IF EXISTS `nov_novel`;
 
 CREATE TABLE `nov_novel` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `hash_key` varchar(16) NOT NULL DEFAULT '' COMMENT 'Hash',
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '小说名称',
   `desc` varchar(2555) NOT NULL DEFAULT '' COMMENT '小说描述',
   `cover` varchar(100) NOT NULL DEFAULT '' COMMENT '小说封面',
@@ -215,13 +216,17 @@ CREATE TABLE `nov_novel` (
   `chapter_updated_at` int(10) unsigned DEFAULT '0' COMMENT '最新章节时间',
   `chapter_id` bigint(20) unsigned DEFAULT '0' COMMENT '最新章节id',
   `chapter_title` varchar(100) DEFAULT '' COMMENT '最新章节标题',
+  `un_complete_chap_num` int(6) DEFAULT '0' COMMENT '未完成的文章数',
+  `un_complete_chapid` varchar(1000) DEFAULT NULL COMMENT '未完成的文章ID',
   `collect_num` int(10) unsigned DEFAULT '0',
   `rec_num` int(10) unsigned DEFAULT '0',
   `created_at` int(10) unsigned DEFAULT '0',
   `updated_at` int(10) unsigned DEFAULT '0',
   `deleted_at` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_novel` (`name`,`author`) USING BTREE
+  UNIQUE KEY `index_novel` (`name`,`author`) USING BTREE,
+  UNIQUE KEY `index_hashkey` (`hash_key`),
+  FULLTEXT KEY `index_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='小说主信息表';
 
 
@@ -400,6 +405,16 @@ CREATE TABLE `nov_snatch_rule` (
   `deleted_at` int(11) unsigned DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `nov_splider` (
+   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+   `req` text NOT NULL COMMENT 'splider请求数据',
+   `num` int(10) unsigned DEFAULT '0' COMMENT '请求次数',
+   `created_at` int(10) unsigned DEFAULT '0',
+   `updated_at` int(10) unsigned DEFAULT '0',
+   `deleted_at` int(10) unsigned DEFAULT '0',
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=768 DEFAULT CHARSET=utf8mb4 COMMENT='小说主信息表';
 
 LOCK TABLES `nov_snatch_rule` WRITE;
 /*!40000 ALTER TABLE `nov_snatch_rule` DISABLE KEYS */;

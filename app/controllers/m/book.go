@@ -31,7 +31,12 @@ type BookController struct {
 
 // 首页
 func (this *BookController) Index() {
-	id, _ := this.GetUint32("id")
+	hashkey := this.GetString("id")
+	novs := services.NovelService.GetByHashKey(hashkey)
+	if novs == nil {
+		this.Msg("参数错误，无法访问")
+	}
+	id := novs.Id
 	if id < 1 {
 		this.Msg("参数错误，无法访问")
 	}
@@ -82,7 +87,12 @@ func (this *BookController) List() {
 
 // 获取章节列表
 func (this *BookController) AjaxChaps() {
-	id, _ := this.GetUint32("id")
+	hashkey := this.GetString("id")
+	novs := services.NovelService.GetByHashKey(hashkey)
+	if novs == nil {
+		this.Msg("参数错误，无法访问")
+	}
+	id := novs.Id
 	if id < 1 {
 		this.OutJson(1001, "参数错误，无法访问")
 	}
@@ -117,12 +127,12 @@ func (this *BookController) AjaxChaps() {
 // 详情页
 func (this *BookController) Detail() {
 	id, _ := this.GetUint64("id")
-	novId, _ := this.GetUint32("novid")
-	if id < 1 || novId < 1 {
+	novId := this.GetString("novid")
+	if id < 1 || novId == "" {
 		this.Msg("参数错误，无法访问")
 	}
 
-	chap := services.ChapterService.Get(id, novId)
+	chap := services.ChapterService.GetByHashKey(id, novId)
 	if chap == nil {
 		this.Msg("该章节不存在或者已被删除")
 	}

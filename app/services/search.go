@@ -33,6 +33,10 @@ func (this *Search) GetRes(size int) []*models.Search {
 	args := models.ArgsSearchList{}
 	args.IsRec = 1
 	args.Limit = size
+	cons := make(map[string]interface{})
+	cons["key"] = "chapter_title"
+	cons["value"] = ""
+	args.Exclude = cons
 
 	list, _ := models.SearchModel.GetAll(args)
 

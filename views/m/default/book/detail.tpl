@@ -16,13 +16,13 @@
 	</div>
 	<div class="am-btn-group am-btn-group-justify am-margin-vertical">
     	  {{if not_nil .Pre}}
-    		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Detail" "id" .Pre.Id "novid" .Nov.Id}}">上一章</a>
+    		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Detail" "id" .Pre.Id "novid" .Nov.HashKey}}">上一章</a>
     	  {{else}}
     		<span class="am-btn am-btn-default" role="button">没有了</span>
     	  {{end}}
-    		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Index" "id" .Chap.NovId}}">目录</a>
+    		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Index" "id" .Nov.HashKey}}">目录</a>
     	  {{if not_nil .Next}}
-    		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Detail" "id" .Next.Id "novid" .Nov.Id}}">下一章</a>
+    		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Detail" "id" .Next.Id "novid" .Nov.HashKey}}">下一章</a>
     	  {{else}}
     		<span class="am-btn am-btn-default" role="button">没有了</span>
     	  {{end}}
@@ -40,13 +40,13 @@
 
 	  <div class="am-btn-group am-btn-group-justify am-margin-vertical">
 	  {{if not_nil .Pre}}
-		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Detail" "id" .Pre.Id "novid" .Nov.Id}}">上一章</a>
+		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Detail" "id" .Pre.Id "novid" .Nov.HashKey}}">上一章</a>
 	  {{else}}
 		<span class="am-btn am-btn-default" role="button">没有了</span>
 	  {{end}}
-		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Index" "id" .Chap.NovId}}">目录</a>
+		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Index" "id" .Nov.HashKey}}">目录</a>
 	  {{if not_nil .Next}}
-		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Detail" "id" .Next.Id "novid" .Nov.Id}}">下一章</a>
+		<a class="am-btn am-btn-default" role="button" href="{{urlfor "m.BookController.Detail" "id" .Next.Id "novid" .Nov.HashKey}}">下一章</a>
 	  {{else}}
 		<span class="am-btn am-btn-default" role="button">没有了</span>
 	  {{end}}

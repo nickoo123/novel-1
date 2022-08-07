@@ -22,7 +22,7 @@
 {{if .Novels}}
 	<ul class="vertical-list multiline-intro" id="cate_list">
 		{{range .Novels}}
-		<a href="{{urlfor "m.BookController.Index" "id" .Id}}" title="{{str2html .Name}}-{{.CateName}}-{{.ChapterTitle}}">
+		<a href="{{urlfor "m.BookController.Index" "id" .HashKey}}" title="{{str2html .Name}}-{{.CateName}}-{{.ChapterTitle}}">
 		<li>
 			<div class="book-cover book-cover-size72"><img src="{{$.mOut.ViewUrl}}img/nocover.jpg" data-echo="{{.Cover}}" alt="{{html2str .Name}}"></div>
 			<div class="book-detail">
@@ -126,7 +126,7 @@ $(document).ready(function() {
 				nocover = "{{.mOut.ViewUrl}}img/nocover.jpg";
 			}
 
-			_html += '<a href="{{urlfor "m.BookController.Index"}}?id=' + item.id + '">';
+			_html += '<a href="{{urlfor "m.BookController.Index"}}?id=' + item.HashKey + '">';
 			_html += '<li>';
 			_html += '	<div class="book-cover book-cover-size72"><img src="' + nocover + '" alt="' + item.name + '"></div>';
 			_html += '  <div class="book-detail">';
