@@ -170,7 +170,7 @@ func (this *HomeController) Search() {
 
 	log := &models.SearchLog{
 		Kw: q,
-		Ip: this.Ctx.Input.IP(),
+		Ip: this.Ctx.Request.Header.Get("X-Real-ip"),
 	}
 
 	if len(novs) > 0 {

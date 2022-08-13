@@ -16,7 +16,6 @@ package m
 
 import (
 	"github.com/astaxie/beego"
-
 	"novel/app/models"
 	"novel/app/services"
 )
@@ -172,7 +171,7 @@ func (this *BookController) Search() {
 	log := &models.SearchLog{
 		Kw:     q,
 		Source: 1,
-		Ip:     this.Ctx.Input.IP(),
+		Ip:     this.Ctx.Request.Header.Get("X-Real-ip"),
 	}
 
 	if len(novels) > 0 {
