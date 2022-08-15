@@ -8,6 +8,7 @@
                     <span class="no-data-img"></span>
                 </div>
                 <h3>没有找到符合条件的书</h3>
+                <small>亲爱的书友你好，你的需求就是我们的追求，本站尽快收录，请过几天再搜索</small>
                 <p>你也可以去<a class="blue" href="{{urlfor "home.HomeController.Cate"}}">全部作品</a>找书</p>
             </div>
 		{{else}}

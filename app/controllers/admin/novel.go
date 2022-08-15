@@ -289,6 +289,9 @@ func (this *NovelController) save() {
 	novel.IsVipReward, _ = this.GetUint8("is_vip_reward")
 	novel.IsVipUp, _ = this.GetUint8("is_vip_up")
 	novel.Status, _ = this.GetUint8("status")
+	if id == 0 {
+		novel.HashKey = services.RandUnquieString(16)
+	}
 
 	err := services.NovelService.Save(novel)
 	if err != nil {

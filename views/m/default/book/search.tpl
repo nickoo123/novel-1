@@ -43,6 +43,7 @@
 	<div class="bookshelf-remind">
 		<img src="{{.mOut.ViewUrl}}img/noresult.png" alt="">
 		<p>您所搜索的秘籍已失传</p>
+		<small>亲爱的书友你好，你的需求就是我们的追求，本站尽快收录，请过几天再搜索</small>
 		<a href="{{urlfor "m.HomeController.Index"}}" class="bookshelf-remind-btn">去书城逛逛</a>
 	</div>
 {{end}}

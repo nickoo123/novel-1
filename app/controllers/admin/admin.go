@@ -204,5 +204,6 @@ func (this *AdminController) Sitemap() {
 		fmt.Println("Error writing XML to file:", err)
 		return
 	}
+	//services.ChapterService.GetNovChaps(, 10000, 0, "asc", false)
 	this.OutJson(0, "sitemap.xml创建成功")
 }
