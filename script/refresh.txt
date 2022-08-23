@@ -16,6 +16,182 @@ CREATE TABLE `newtest` (
   PRIMARY KEY (`id`),
   KEY `udx_novid_no_source` (`nov_id`,`chapter_no`,`source`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+insert into newtest select * from nov_chapter_0091;
+update gochapter.nov_chapter_0091 set `desc` = REPLACE(`desc`,substring(`desc`, locate('<center>', `desc`),locate('</center>', `desc`) ),'');
+drop table nov_chapter_0091;
+rename table newtest to nov_chapter_0091;
+CREATE TABLE `newtest` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nov_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说ID',
+  `chapter_no` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '章节编号',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '章节标题',
+  `desc` longtext NOT NULL COMMENT '章节内容',
+  `link` varchar(100) DEFAULT '' COMMENT '章节采集链接',
+  `source` varchar(10) DEFAULT '' COMMENT '章节采集站点源',
+  `views` int(10) unsigned DEFAULT '0' COMMENT '浏览次数',
+  `text_num` int(11) unsigned DEFAULT '0' COMMENT '章节字数',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '章节采集状态0正常，1失败',
+  `try_views` tinyint(2) unsigned DEFAULT '0' COMMENT '采集重试次数',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `udx_novid_no_source` (`nov_id`,`chapter_no`,`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+insert into newtest select * from nov_chapter_0092;
+update gochapter.nov_chapter_0092 set `desc` = REPLACE(`desc`,substring(`desc`, locate('<center>', `desc`),locate('</center>', `desc`) ),'');
+drop table nov_chapter_0092;
+rename table newtest to nov_chapter_0092;
+CREATE TABLE `newtest` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nov_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说ID',
+  `chapter_no` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '章节编号',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '章节标题',
+  `desc` longtext NOT NULL COMMENT '章节内容',
+  `link` varchar(100) DEFAULT '' COMMENT '章节采集链接',
+  `source` varchar(10) DEFAULT '' COMMENT '章节采集站点源',
+  `views` int(10) unsigned DEFAULT '0' COMMENT '浏览次数',
+  `text_num` int(11) unsigned DEFAULT '0' COMMENT '章节字数',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '章节采集状态0正常，1失败',
+  `try_views` tinyint(2) unsigned DEFAULT '0' COMMENT '采集重试次数',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `udx_novid_no_source` (`nov_id`,`chapter_no`,`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+insert into newtest select * from nov_chapter_0093;
+update gochapter.nov_chapter_0093 set `desc` = REPLACE(`desc`,substring(`desc`, locate('<center>', `desc`),locate('</center>', `desc`) ),'');
+drop table nov_chapter_0093;
+rename table newtest to nov_chapter_0093;
+CREATE TABLE `newtest` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nov_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说ID',
+  `chapter_no` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '章节编号',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '章节标题',
+  `desc` longtext NOT NULL COMMENT '章节内容',
+  `link` varchar(100) DEFAULT '' COMMENT '章节采集链接',
+  `source` varchar(10) DEFAULT '' COMMENT '章节采集站点源',
+  `views` int(10) unsigned DEFAULT '0' COMMENT '浏览次数',
+  `text_num` int(11) unsigned DEFAULT '0' COMMENT '章节字数',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '章节采集状态0正常，1失败',
+  `try_views` tinyint(2) unsigned DEFAULT '0' COMMENT '采集重试次数',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `udx_novid_no_source` (`nov_id`,`chapter_no`,`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+insert into newtest select * from nov_chapter_0094;
+update gochapter.nov_chapter_0094 set `desc` = REPLACE(`desc`,substring(`desc`, locate('<center>', `desc`),locate('</center>', `desc`) ),'');
+drop table nov_chapter_0094;
+rename table newtest to nov_chapter_0094;
+CREATE TABLE `newtest` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nov_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说ID',
+  `chapter_no` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '章节编号',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '章节标题',
+  `desc` longtext NOT NULL COMMENT '章节内容',
+  `link` varchar(100) DEFAULT '' COMMENT '章节采集链接',
+  `source` varchar(10) DEFAULT '' COMMENT '章节采集站点源',
+  `views` int(10) unsigned DEFAULT '0' COMMENT '浏览次数',
+  `text_num` int(11) unsigned DEFAULT '0' COMMENT '章节字数',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '章节采集状态0正常，1失败',
+  `try_views` tinyint(2) unsigned DEFAULT '0' COMMENT '采集重试次数',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `udx_novid_no_source` (`nov_id`,`chapter_no`,`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+insert into newtest select * from nov_chapter_0095;
+update gochapter.nov_chapter_0095 set `desc` = REPLACE(`desc`,substring(`desc`, locate('<center>', `desc`),locate('</center>', `desc`) ),'');
+drop table nov_chapter_0095;
+rename table newtest to nov_chapter_0095;
+CREATE TABLE `newtest` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nov_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说ID',
+  `chapter_no` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '章节编号',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '章节标题',
+  `desc` longtext NOT NULL COMMENT '章节内容',
+  `link` varchar(100) DEFAULT '' COMMENT '章节采集链接',
+  `source` varchar(10) DEFAULT '' COMMENT '章节采集站点源',
+  `views` int(10) unsigned DEFAULT '0' COMMENT '浏览次数',
+  `text_num` int(11) unsigned DEFAULT '0' COMMENT '章节字数',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '章节采集状态0正常，1失败',
+  `try_views` tinyint(2) unsigned DEFAULT '0' COMMENT '采集重试次数',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `udx_novid_no_source` (`nov_id`,`chapter_no`,`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+insert into newtest select * from nov_chapter_0096;
+update gochapter.nov_chapter_0096 set `desc` = REPLACE(`desc`,substring(`desc`, locate('<center>', `desc`),locate('</center>', `desc`) ),'');
+drop table nov_chapter_0096;
+rename table newtest to nov_chapter_0096;
+CREATE TABLE `newtest` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nov_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说ID',
+  `chapter_no` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '章节编号',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '章节标题',
+  `desc` longtext NOT NULL COMMENT '章节内容',
+  `link` varchar(100) DEFAULT '' COMMENT '章节采集链接',
+  `source` varchar(10) DEFAULT '' COMMENT '章节采集站点源',
+  `views` int(10) unsigned DEFAULT '0' COMMENT '浏览次数',
+  `text_num` int(11) unsigned DEFAULT '0' COMMENT '章节字数',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '章节采集状态0正常，1失败',
+  `try_views` tinyint(2) unsigned DEFAULT '0' COMMENT '采集重试次数',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `udx_novid_no_source` (`nov_id`,`chapter_no`,`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+insert into newtest select * from nov_chapter_0097;
+update gochapter.nov_chapter_0097 set `desc` = REPLACE(`desc`,substring(`desc`, locate('<center>', `desc`),locate('</center>', `desc`) ),'');
+drop table nov_chapter_0097;
+rename table newtest to nov_chapter_0097;
+CREATE TABLE `newtest` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nov_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说ID',
+  `chapter_no` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '章节编号',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '章节标题',
+  `desc` longtext NOT NULL COMMENT '章节内容',
+  `link` varchar(100) DEFAULT '' COMMENT '章节采集链接',
+  `source` varchar(10) DEFAULT '' COMMENT '章节采集站点源',
+  `views` int(10) unsigned DEFAULT '0' COMMENT '浏览次数',
+  `text_num` int(11) unsigned DEFAULT '0' COMMENT '章节字数',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '章节采集状态0正常，1失败',
+  `try_views` tinyint(2) unsigned DEFAULT '0' COMMENT '采集重试次数',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `udx_novid_no_source` (`nov_id`,`chapter_no`,`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+insert into newtest select * from nov_chapter_0098;
+update gochapter.nov_chapter_0098 set `desc` = REPLACE(`desc`,substring(`desc`, locate('<center>', `desc`),locate('</center>', `desc`) ),'');
+drop table nov_chapter_0098;
+rename table newtest to nov_chapter_0098;
+CREATE TABLE `newtest` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nov_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '小说ID',
+  `chapter_no` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '章节编号',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '章节标题',
+  `desc` longtext NOT NULL COMMENT '章节内容',
+  `link` varchar(100) DEFAULT '' COMMENT '章节采集链接',
+  `source` varchar(10) DEFAULT '' COMMENT '章节采集站点源',
+  `views` int(10) unsigned DEFAULT '0' COMMENT '浏览次数',
+  `text_num` int(11) unsigned DEFAULT '0' COMMENT '章节字数',
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '章节采集状态0正常，1失败',
+  `try_views` tinyint(2) unsigned DEFAULT '0' COMMENT '采集重试次数',
+  `created_at` int(10) unsigned DEFAULT '0',
+  `updated_at` int(10) unsigned DEFAULT '0',
+  `deleted_at` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `udx_novid_no_source` (`nov_id`,`chapter_no`,`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 insert into newtest select * from nov_chapter_0099;
 update gochapter.nov_chapter_0099 set `desc` = REPLACE(`desc`,substring(`desc`, locate('<center>', `desc`),locate('</center>', `desc`) ),'');
 drop table nov_chapter_0099;
