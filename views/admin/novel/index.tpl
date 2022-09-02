@@ -47,6 +47,7 @@
                         <th>热门</th>
                         <th>推荐</th>
                         <th>精品</th>
+                        <th>展示次数</th>
                         <th>章节更新时间</th>
                         <th style="width: 450px;">操作</th>
                     </tr>
@@ -65,6 +66,7 @@
                         <td>{{str2html .IsHotName}}</td>
                         <td>{{str2html .IsRecName}}</td>
                         <td>{{str2html .IsVipRecName}}</td>
+                        <td>{{.Views}}</td>
                         <td>{{datetime .ChapterUpdatedAt "01-02 15:04:05"}}</td>
                         <td class="td-manage">
                             <a href="javascript:;" onclick="x_admin_show('编辑小说', {{urlfor "admin.NovelController.Edit" "id" .Id}})" class="layui-btn layui-btn-xs layui-btn-normal">
