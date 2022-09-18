@@ -16,6 +16,7 @@ package main
 
 import (
 	"github.com/astaxie/beego"
+	"novel/app/scheduler"
 
 	_ "novel/app"
 )
@@ -23,5 +24,8 @@ import (
 func main() {
 	//beego.BConfig.Listen.EnableAdmin = true
 	//beego.BConfig.Listen.AdminPort = 8091
+	// 开启定时任务
+	scheduler.Start()
+
 	beego.Run()
 }

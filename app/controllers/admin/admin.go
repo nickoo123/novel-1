@@ -188,7 +188,7 @@ func (this *AdminController) Sitemap() {
 	for _, nov := range novs {
 		var buf bytes.Buffer
 		buf.WriteString("https://www.biqugesk.cc/book/")
-		buf.WriteString(fmt.Sprintf("%v.html", nov.Id))
+		buf.WriteString(fmt.Sprintf("%s.html", nov.HashKey))
 		url := sitemap.NewUrl()
 		url.SetLoc(buf.String())
 		ins, _ := strconv.ParseInt(fmt.Sprintf("%v", nov.CreatedAt), 10, 64)
@@ -199,11 +199,12 @@ func (this *AdminController) Sitemap() {
 		st.AppendUrl(url)
 	}
 	xml, _ := st.ToXml()
-	err := ioutil.WriteFile(fmt.Sprintf("static/sitemap/%d.xml", page), xml, 0644)
+	xmlfile := fmt.Sprintf("static/sitemap/%d.xml", page)
+	err := ioutil.WriteFile(xmlfile, xml, 0644)
 	if err != nil {
 		fmt.Println("Error writing XML to file:", err)
 		return
 	}
 	//services.ChapterService.GetNovChaps(, 10000, 0, "asc", false)
-	this.OutJson(0, "sitemap.xml创建成功")
+	this.OutJson(0, xmlfile+"创建成功")
 }

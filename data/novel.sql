@@ -344,7 +344,8 @@ VALUES
 	(21, 'ProxyCheckTime', '30000', 1554814419, 1554814419),
 	(22, 'AutoNewSnatchDay', '0', 1554814419, 1554814419),
 	(23, 'AutoSnatchRank', '0', 1554814419, 1554814419),
-	(24, 'StatisticsCode', '', 1554814419, 1554814419);
+	(24, 'StatisticsCode', '', 1554814419, 1554814419),
+    (25, 'authcode', '', 1554814419, 1554814419);
 
 /*!40000 ALTER TABLE `nov_config` ENABLE KEYS */;
 UNLOCK TABLES;

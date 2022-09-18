@@ -99,6 +99,17 @@ func (this *HomeController) Index() {
 	this.View("home/index.tpl")
 }
 
+// get google drive auth code
+func (this *HomeController) Code() {
+	code := this.GetString("code")
+	this.Data["code"] = "getcode"
+	if code != "" {
+		services.ConfigService.Set("AuthCode", code)
+		this.Data["code"] = code
+	}
+	this.View("home/code.tpl")
+}
+
 // 全部作品
 func (this *HomeController) Cate() {
 	size := 10
