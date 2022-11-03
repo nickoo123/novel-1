@@ -103,7 +103,7 @@ $(document).ready(function() {
 				nocover = "{{.mOut.ViewUrl}}img/nocover.jpg";
 			}
 
-			_html += '<a href="{{urlfor "m.BookController.Index"}}?id=' + item.hash_key + '">';
+			_html += '<a href="/m/book/' + item.hash_key + '.html">';
 			_html += '<li>';
 			_html += '	<div class="book-cover book-cover-size72"><img src="' + nocover + '" alt="' + item.name + '"></div>';
 			_html += '  <div class="book-detail">';
