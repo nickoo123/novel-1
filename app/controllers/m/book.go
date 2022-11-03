@@ -260,6 +260,7 @@ func (this *BookController) AjaxNovels() {
 		tmp := make(map[string]interface{})
 
 		tmp["id"] = nov.Id
+		tmp["hash_key"] = nov.HashKey
 		tmp["name"] = nov.Name
 		tmp["author"] = nov.Author
 		tmp["cate_name"] = nov.CateName
